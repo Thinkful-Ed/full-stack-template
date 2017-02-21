@@ -1,0 +1,21 @@
+{
+  "name": "thinkful-full-stack-template-v2",
+  "version": "0.1.0",
+  "description": "A full-stack starter template",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "heroku-postbuild": "cd server && npm run build",
+    "dev": "run-p dev:server dev:client",
+    "dev:client": "cd client && npm start",
+    "dev:server": "cd server && npm start",
+    "install": "run-s install:server install:client",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install"
+  },
+  "author": "Joe Turner <jturner@thinkful.com>",
+  "license": "MIT",
+  "dependencies": {
+    "npm-run-all": "^4.0.1"
+  }
+}
