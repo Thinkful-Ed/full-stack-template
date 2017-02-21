@@ -7,20 +7,21 @@
     "start": "node server/index.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm run build",
     "dev": "run-p dev:server dev:client",
-    "dev:client": "cd client && npm start",
+    "dev:client": "cd client && cross-env BROWSER=none npm start",
     "dev:server": "cd server && npm start",
     "install": "run-s install:server install:client",
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install"
   },
   "cacheDirectories": [
-      "node_modules",
-      "server/node_modules",
-      "client/node_modules"
+    "node_modules",
+    "server/node_modules",
+    "client/node_modules"
   ],
   "author": "Joe Turner <jturner@thinkful.com>",
   "license": "MIT",
   "dependencies": {
+    "cross-env": "^3.1.4",
     "npm-run-all": "^4.0.1"
   }
 }
