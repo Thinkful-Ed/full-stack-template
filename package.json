@@ -13,6 +13,11 @@
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install"
   },
+  "cacheDirectories": [
+      "node_modules",
+      "server/node_modules",
+      "client/node_modules"
+  ],
   "author": "Joe Turner <jturner@thinkful.com>",
   "license": "MIT",
   "dependencies": {
