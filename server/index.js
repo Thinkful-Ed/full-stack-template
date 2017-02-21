@@ -19,10 +19,10 @@ else {
 }
 
 let server;
-function runServer(host='localhost', port=8080) {
+function runServer(port=8080) {
     return new Promise((resolve, reject) => {
-        server = app.listen(port, host, () => {
-            console.log(`Server running on ${host}:${port}`);
+        server = app.listen(port, () => {
+            console.log(`Server listening on port ${port}`);
             resolve();
         }).on('error', reject);
     });
@@ -40,7 +40,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
-    runServer(process.env.HOST, process.env.PORT);
+    runServer(process.env.PORT);
 }
 
 module.exports = {
