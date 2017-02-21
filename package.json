@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "heroku-postbuild": "cd server && npm run build",
+    "heroku-postbuild": "cd client && npm run build",
     "dev": "run-p dev:server dev:client",
     "dev:client": "cd client && npm start",
     "dev:server": "cd server && npm start",
