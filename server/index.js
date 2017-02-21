@@ -1,15 +1,20 @@
+const path = require('path');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 
 const app = express();
 
+// API endpoints go here!
+
 if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.resolve(__dirname, '../client/build')));
+
     app.get('*', function(request, response) {
-        response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+        const index = path.resolve(__dirname, '../client/build', 'index.html');
+        response.sendFile(index);
     });
 }
 else {
-    console.log("here");
     app.use(proxy('http://localhost:3000'));
 }
 
