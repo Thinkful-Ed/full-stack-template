@@ -16,7 +16,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 else {
     app.use(proxy('http://localhost:3000', {
-        ws: true // Proxy websockets for live reload
+        ws: true, // Proxy websockets for live reload
+        logLevel: 'warn'
     }));
 }
 
