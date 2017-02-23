@@ -4,9 +4,9 @@
   "description": "A full-stack starter template",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node index.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm run build",
-    "dev": "run-p dev:server dev:client",
+    "dev": "run-p dev:server dev:client start",
     "dev:client": "cd client && cross-env BROWSER=none npm start -- --color=always | xp http://localhost:3000/ http://localhost:8080/",
     "dev:server": "cd server && npm start",
     "install": "run-s install:server install:client",
@@ -22,6 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "cross-env": "^3.1.4",
+    "express": "^4.14.1",
+    "http-proxy-middleware": "^0.17.3",
     "npm-run-all": "^4.0.1",
     "xp": "^1.0.1"
   }
