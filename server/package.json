@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.1",
-    "http-proxy-middleware": "^0.17.3",
     "nodemon": "^1.11.0"
   }
 }

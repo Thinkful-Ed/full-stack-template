@@ -10,14 +10,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 else {
     const app = express();
-    // Proxy everything through to our server
-    app.use(proxy('http://localhost:3001/', {
+    // Proxy everything through to Create React App
+    app.use(proxy('http://localhost:3000/', {
         logLevel: 'warn', // Keep the logs clean
         ws: true, // Proxy websockets too
         router: {
-            // Proxy live reload websocket straight to Create React App
-            // so it doesn't disconnect when our server reloads
-            'localhost:8080/sockjs-node': 'http://localhost:3000'
+            // Anything to /api goes to our backend
+            'localhost:8080/api': 'http://localhost:3001'
         }
     }));
     app.listen(process.env.PORT || 8080);
