@@ -21,6 +21,12 @@ A template for developing and deploying full stack JavaScript apps.
     * Starts a server running at http://localhost:8080
     * Automatically rebuilds when any of your files change
 
+## Proxying
+
+In development, the full stack template works by proxying requests from port 8080 to the server or the client.  Any requests to routes which start with `/api/`, (for example, `/api/foo`, or `/api/foo/bar`) will be sent to the server.  All other requests, will serve the client.
+
+*tl;dr* Make sure your API endpoints start with `/api`.
+
 ## Installing dependencies
 
 Client-side dependencies should be installed into the `client` directory:
