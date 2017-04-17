@@ -18,12 +18,32 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 
 let server;
 function runServer(port=3001) {
+    // we need to use mongoose.connect to connect to an mlab mongo server
+    // seed the seed data into the mlab datbase 
     return new Promise((resolve, reject) => {
         server = app.listen(port, () => {
             resolve();
         }).on('error', reject);
     });
 }
+
+// let server;
+// function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+//   return new Promise((resolve, reject) => {
+//     mongoose.connect(databaseUrl, err => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       server = app.listen(port, () => {
+//         console.log(`You are listening on port ${port}`);
+//         resolve();
+//       })
+//       .on('error', err => {
+//         reject(err);
+//       });
+//     });
+//   });
+// }
 
 function closeServer() {
     return new Promise((resolve, reject) => {
