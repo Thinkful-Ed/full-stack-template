@@ -1,5 +1,6 @@
 import React from 'react';
 import './header.css';
+import {Link, Redirect} from 'react-router-dom';
 
 export default function Header(props) {
   return (
@@ -8,8 +9,8 @@ export default function Header(props) {
         <ul>
           <li>adoptme</li>
           <li>About</li>
-          <li>Search</li>
-          <li>Shelters</li>
+          <li><Link to='/search'>Search</Link></li>
+          <li><Link to='/shelters'>Shelters</Link></li>
         </ul>
       </div>
     </header>

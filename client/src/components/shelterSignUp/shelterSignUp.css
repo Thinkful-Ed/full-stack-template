@@ -1,0 +1,9 @@
+.register-container{
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.register-container input{
+  width: 100%;
+  height: 30px;
+}

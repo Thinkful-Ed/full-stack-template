@@ -21,3 +21,27 @@ export const fetchSheltersData = () => dispatch => {
       return dispatch(fetchSheltersSuccess(sheltersJson));
     })
 }
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const logInRequest = () => ({
+    type: LOGIN_REQUEST,
+    loading: true
+});
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const logInSuccess = shelter => ({
+    type: LOGIN_SUCCESS,
+    loading: false,
+    shelter 
+});
+
+export const fetchlogInData = () => dispatch => {
+  dispatch(logInRequest());
+  fetch('../../../api/login')
+    .then(shelter => {
+      return shelter.json();
+    })
+    .then(shelterJson => {
+      return dispatch(logInSuccess(shelterJson));
+    })
+}

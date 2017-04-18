@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Header from '../header';
 import {fetchSheltersData} from '../../actions';
 import './search.css';
 import PetProfile from '../petProfile';
@@ -30,7 +29,6 @@ export function Search(props) {
   return (
     <div>
 
-      <Header />
       <div className='search-container'>
         <div className='form-container'>
           <h2>Animal Search!</h2> 
@@ -58,7 +56,7 @@ export function Search(props) {
 }
 
 const mapStateToProps = (state) => ({
-  shelters: state.shelters
+  shelters: state.shelters.data
 });
 
 export default connect(mapStateToProps)(Search);

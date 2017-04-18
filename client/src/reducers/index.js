@@ -1,21 +1,11 @@
-import {FETCH_SHELTERS_REQUEST, FETCH_SHELTERS_SUCCESS} from '../actions';
+import {combineReducers} from 'redux';
 
-const initialState = {
-  shelters: [],
-  loading: false
-};
+import sheltersReducer from './sheltersReducer';
+import logInReducer from './logInReducer';
 
-const sheltersReducer = (state=initialState, action) => {
-  if (action.type === FETCH_SHELTERS_REQUEST) {
-    return Object.assign({}, state, { loading: action.loading });
-  }
-  else if (action.type === FETCH_SHELTERS_SUCCESS) {
-    return Object.assign({}, state, {
-      shelters: action.shelters,
-      loading: action.loading
-    });
-  } 
-  return state;
-}
+const rootReducer = combineReducers({
+  shelters: sheltersReducer,
+  logIn: logInReducer
+});
 
-export default sheltersReducer;
+export default rootReducer;

@@ -1,9 +1,11 @@
-.register-container{
-  max-width: 300px;
-  margin: 0 auto;
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.register-container input{
+.btn-container button {
   width: 100%;
-  height: 30px;
 }
