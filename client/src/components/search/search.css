@@ -1,0 +1,36 @@
+.search-container {
+  display: flex;
+}
+
+.search-container h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.form-container {
+  width: 30%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 20px;
+  border-right: 1px solid #C0C0C0;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 5px 5px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.form-container input[type='radio'] {
+  width: 5%;
+}
+
+.form-container button {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}

@@ -16,9 +16,9 @@ const test = {
 }
 
 // API endpoints go here!
-app.get('http://localhost:3001/adoptme', (req, res) =>{
-    send(res.json(test));
-})
+app.get('/api', (req, res) => {
+    return res.json({message: 'hello'});
+});
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
