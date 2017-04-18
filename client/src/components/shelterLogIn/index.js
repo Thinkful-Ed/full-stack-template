@@ -1,10 +1,15 @@
 import React from 'react';
 import './shelterLogIn.css'
 
-export default class ShelterLogIn extends React.Component {
+import {connect} from 'react-redux';
+import {fetchLogInData} from '../../actions';
+
+export class ShelterLogIn extends React.Component {
 
   handleLogIn(event) {
     event.preventDefault();
+    console.log(this.refs.id.value);
+    this.props.dispatch(fetchLogInData(this.refs.id.value));
   }
 
   render() {
@@ -22,6 +27,8 @@ export default class ShelterLogIn extends React.Component {
     );
   }
 }
+
+export default connect()(ShelterLogIn);
 
 /*
 <label htmlFor="email"></label><br />

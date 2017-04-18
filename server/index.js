@@ -55,6 +55,16 @@ app.post('/api', jsonParser, (req, res) => {
     });
 });
 
+app.get('/api/login/:id', (req, res) => {
+	return Shelter
+		.findById(req.params.id)
+		.exec()
+		.then(shelter => {
+			return res.status(200).json(shelter.apiRepr());
+		})
+		.catch(error => res.status(400).json(error));
+});
+
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 

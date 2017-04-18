@@ -35,7 +35,7 @@ export const logInSuccess = shelter => ({
     shelter 
 });
 
-export const fetchlogInData = (id) => dispatch => {
+export const fetchLogInData = (id) => dispatch => {
   dispatch(logInRequest());
   fetch(`../../../api/login/${id}`)
     .then(shelter => {
