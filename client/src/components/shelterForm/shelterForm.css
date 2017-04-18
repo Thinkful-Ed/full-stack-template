@@ -1,0 +1,12 @@
+.shelterForm-container{
+  max-width: 80%;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+.shelterForm-container button {
+  width: 40%;
+  margin-right: 20px;
+  margin-top: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
