@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Header from '../header';
 import {fetchAnimalData} from '../../actions';
 import './search.css';
+import PetProfile from '../petProfile';
 
 export function Search(props) {
   
@@ -10,6 +11,8 @@ export function Search(props) {
     e.preventDefault();
     props.dispatch(fetchAnimalData());
   }
+
+  // map over props.animals
 
   return (
     <div>
