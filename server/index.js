@@ -1,10 +1,24 @@
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
+const {PORT, DATABASE_URL} =require('./config');
+const {Shelter} = require('./models');
+mongoose.Promise = global.Promise;
 
 const app = express();
+const test = {
+  "shelter": "Caring Kelley's Animal Shelter",
+  "location": "California",
+  "address": "123 Dummy Street",
+  "zipcode": 123456,
+  "type": "dogs",
+  "animals": ["Inky", "Pinky", "Blinky", "Clide"]
+}
 
 // API endpoints go here!
-
+app.get('http://localhost:3001/adoptme', (req, res) =>{
+    send(res.json(test));
+})
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
@@ -59,6 +73,12 @@ function closeServer() {
 if (require.main === module) {
     runServer();
 }
+
+
+exports.DATABASE_URL = process.env.DATABASE_URL ||
+                       global.DATABASE_URL ||
+                      'mongodb://localhost/pet-adoption-app';
+exports.PORT = process.env.PORT || 3001;
 
 module.exports = {
     app, runServer, closeServer
