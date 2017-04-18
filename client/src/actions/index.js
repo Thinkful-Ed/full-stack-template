@@ -5,19 +5,20 @@ export const fetchAnimalsRequest = () => ({
 });
 
 export const FETCH_ANIMALS_SUCCESS = 'FETCH_ANIMALS_SUCCESS';
-export const fetchAnimalsSuccess = animals => ({
+export const fetchAnimalsSuccess = shelters => ({
     type: FETCH_ANIMALS_SUCCESS,
     loading: false,
-    animals 
+    shelters 
 });
 
 export const fetchAnimalData = () => dispatch => {
   dispatch(fetchAnimalsRequest());
   fetch('../../../api')
-    .then(animals => {
-      return animals.json();
+    .then(shelters => {
+      return shelters.json();
     })
-    .then(animalsJson => {
-      console.log(animalsJson);
+    .then(sheltersJson => {
+      console.log(sheltersJson);
+      //dispatch(fetchAnimalsSuccess(sheltersJson));
     })
 }
