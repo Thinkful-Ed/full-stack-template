@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const {DATABASE_URL} = require('./config');
 const {Shelter} = require('./models');
+
 mongoose.Promise = global.Promise;
 
 const app = express();
@@ -21,7 +22,7 @@ app.get('/api', (req, res) => {
      .find({})
      .exec()
      .then(data => {
-        return res.status(200).json({message: 'hello'});
+        return res.status(200).json(data);
      })
      .catch(err => res.status(500).json({error: err}))
 });
@@ -39,13 +40,23 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 let server;
 function runServer(port=3001) {
     // we need to use mongoose.connect to connect to an mlab mongo server
-    // seed the seed data into the mlab datbase 
+    // seed the seed data into the mlab datbase
     return new Promise((resolve, reject) => {
+        mongoose.connect(DATABASE_URL, err => {
+        if (err) {
+            return reject(err);
+        } 
         server = app.listen(port, () => {
             resolve();
-        }).on('error', reject);
-    });
+        })
+        .on('error', err => {
+            reject(err)
+        });
+      });
+    }); 
 }
+
+// Example =======
 
 // let server;
 // function runServer(databaseUrl=DATABASE_URL, port=PORT) {
@@ -65,6 +76,8 @@ function runServer(port=3001) {
 //   });
 // }
 
+// =============
+
 function closeServer() {
     return new Promise((resolve, reject) => {
         server.close(err => {
@@ -81,10 +94,10 @@ if (require.main === module) {
 }
 
 
-exports.DATABASE_URL = process.env.DATABASE_URL ||
-                       global.DATABASE_URL ||
-                      'mongodb://localhost/pet-adoption-app';
-exports.PORT = process.env.PORT || 3001;
+// exports.DATABASE_URL = process.env.DATABASE_URL ||
+//                        global.DATABASE_URL ||
+//                       'mongodb://localhost/pet-adoption-app';
+// exports.PORT = process.env.PORT || 3001;
 
 module.exports = {
     app, runServer, closeServer
