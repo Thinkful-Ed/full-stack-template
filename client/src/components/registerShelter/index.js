@@ -1,7 +1,6 @@
 import React from 'react';
-import Header from '../header';
 import './registerShelter.css';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default function RegisterShelter(props) {
   return (

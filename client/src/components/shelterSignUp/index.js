@@ -44,7 +44,7 @@ export default class ShelterSignUp extends React.Component {
     return(
       <div>
         <div className="register-container">
-          <h2>Register Shelter</h2>
+          <h2>Shelter Sign Up</h2>
           <form onSubmit={(e)=> this.handleRegister(e)}>
             <label htmlFor="name"></label><br />
             <input id="name" placeholder="Name" ref='name' /><br />
