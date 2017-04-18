@@ -3,18 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const {DATABASE_URL} = require('./config');
 const {Shelter} = require('./models');
+const bodyParser = require('body-parser');
+
+const jsonParser = bodyParser.json();
 
 mongoose.Promise = global.Promise;
 
 const app = express();
-const test = {
-  "shelter": "Caring Kelley's Animal Shelter",
-  "location": "California",
-  "address": "123 Dummy Street",
-  "zipcode": 123456,
-  "type": "dogs",
-  "animals": ["Inky", "Pinky", "Blinky", "Clide"]
-}
 
 // API endpoints go here!
 app.get('/api', (req, res) => {
@@ -25,6 +20,39 @@ app.get('/api', (req, res) => {
         return res.status(200).json(data);
      })
      .catch(err => res.status(500).json({error: err}))
+});
+
+app.post('/api', jsonParser, (req, res) => {
+    console.log(req.body);
+    // Does the shelter already exist in the database?
+    return Shelter
+     .count({name: req.body.name}).exec()
+     .then(count => {
+        if (count > 0) {
+          let message = `Shelter ${req.body.name} already exists`;
+          console.error(message);
+          return res.status(404).json({message: message});
+        }
+        return Shelter.hashPassword(req.body.password);
+     })
+     .then(hash => {
+         return Shelter.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: hash,
+            address: req.body.address,
+            zipcode: req.body.zipcode,
+            state: req.body.state,
+            type: req.body.type,
+            animals: []
+         });
+     })
+     .then(newShelter => {
+         return res.status(201).json(newShelter.apiRepr());
+     })
+     .catch(err => {
+         console.error(err);
+    });
 });
 
 // Serve the built client
@@ -55,28 +83,6 @@ function runServer(port=3001) {
       });
     }); 
 }
-
-// Example =======
-
-// let server;
-// function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-//   return new Promise((resolve, reject) => {
-//     mongoose.connect(databaseUrl, err => {
-//       if (err) {
-//         return reject(err);
-//       }
-//       server = app.listen(port, () => {
-//         console.log(`You are listening on port ${port}`);
-//         resolve();
-//       })
-//       .on('error', err => {
-//         reject(err);
-//       });
-//     });
-//   });
-// }
-
-// =============
 
 function closeServer() {
     return new Promise((resolve, reject) => {

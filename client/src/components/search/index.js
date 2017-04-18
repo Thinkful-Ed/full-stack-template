@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from '../header';
-import {fetchAnimalData} from '../../actions';
+import {fetchSheltersData} from '../../actions';
 import './search.css';
 import PetProfile from '../petProfile';
 
@@ -9,10 +9,23 @@ export function Search(props) {
   
   function handleSearch(e) {
     e.preventDefault();
-    props.dispatch(fetchAnimalData());
+    props.dispatch(fetchSheltersData());
   }
 
-  // map over props.animals
+  // map over props.shelters if the data has been retrieved already
+  let animals = [];
+  if (props.shelters.length > 0) {
+    props.shelters.forEach((shelter, forEachIndex) => {
+      let animalsCurr = shelter.animals.map((animal, index) => {
+        return <PetProfile key={`${index}${forEachIndex}`} name={animal.name} type={animal.type} />
+      });
+      animals.push(animalsCurr);
+    });
+
+    animals = animals.reduce((flat, toFlatten) => {
+      return flat.concat(toFlatten);
+    }, []);
+  }
 
   return (
     <div>
@@ -23,8 +36,8 @@ export function Search(props) {
           <h2>Animal Search!</h2> 
           <form>
 
-            <label htmlFor='animal'>Seach by pet type</label><br />
-            <input placeholder='Animal type' type='text' id='animal' /><br />
+            <label htmlFor='type'>Seach by pet type</label><br />
+            <input placeholder='Type of pet' type='text' id='type' /><br />
 
             <label htmlFor='zip'>Zip code</label><br />
             <input placeholder='Zip code' type='text' id='zip' /><br />
@@ -39,9 +52,13 @@ export function Search(props) {
           </form>
         </div>
       </div>
-
+      {animals}
     </div>
   );
 }
 
-export default connect()(Search);
+const mapStateToProps = (state) => ({
+  shelters: state.shelters
+});
+
+export default connect(mapStateToProps)(Search);

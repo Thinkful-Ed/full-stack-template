@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 
 const shelterSchema = mongoose.Schema({
     name: {type: String, required: true},
+    email: {type: String, required: true},
+    password: {type: String, required: true},
     address: {type: String, required: true},
     zipcode: {type: String, required: true},
     state: {type: String, required: true},
@@ -31,8 +33,7 @@ shelterSchema.methods.apiRepr = function() {
         name: this.name,
         location: this.locationString,
         type: this.type,
-        additionalInfo: this.additionalInfo
-        
+        additionalInfo: this.additionalInfo    
     }
 }
 

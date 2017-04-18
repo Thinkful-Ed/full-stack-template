@@ -1,24 +1,23 @@
-export const FETCH_ANIMALS_REQUEST = 'FETCH_ANIMALS_REQUEST';
-export const fetchAnimalsRequest = () => ({
-    type: FETCH_ANIMALS_REQUEST,
+export const FETCH_SHELTERS_REQUEST = 'FETCH_SHELTERS_REQUEST';
+export const fetchSheltersRequest = () => ({
+    type: FETCH_SHELTERS_REQUEST,
     loading: true
 });
 
-export const FETCH_ANIMALS_SUCCESS = 'FETCH_ANIMALS_SUCCESS';
-export const fetchAnimalsSuccess = shelters => ({
-    type: FETCH_ANIMALS_SUCCESS,
+export const FETCH_SHELTERS_SUCCESS = 'FETCH_SHELTERS_SUCCESS';
+export const fetchSheltersSuccess = shelters => ({
+    type: FETCH_SHELTERS_SUCCESS,
     loading: false,
     shelters 
 });
 
-export const fetchAnimalData = () => dispatch => {
-  dispatch(fetchAnimalsRequest());
+export const fetchSheltersData = () => dispatch => {
+  dispatch(fetchSheltersRequest());
   fetch('../../../api')
     .then(shelters => {
       return shelters.json();
     })
     .then(sheltersJson => {
-      console.log(sheltersJson);
-      //dispatch(fetchAnimalsSuccess(sheltersJson));
+      return dispatch(fetchSheltersSuccess(sheltersJson));
     })
 }

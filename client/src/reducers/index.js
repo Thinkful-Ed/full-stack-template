@@ -1,21 +1,21 @@
-import {FETCH_ANIMALS_REQUEST, FETCH_ANIMALS_SUCCESS} from '../actions';
+import {FETCH_SHELTERS_REQUEST, FETCH_SHELTERS_SUCCESS} from '../actions';
 
 const initialState = {
-  animals: [],
+  shelters: [],
   loading: false
 };
 
-const animalsReducer = (state=initialState, action) => {
-  if (action.type === FETCH_ANIMALS_REQUEST) {
+const sheltersReducer = (state=initialState, action) => {
+  if (action.type === FETCH_SHELTERS_REQUEST) {
     return Object.assign({}, state, { loading: action.loading });
   }
-  else if (action.type === FETCH_ANIMALS_SUCCESS) {
+  else if (action.type === FETCH_SHELTERS_SUCCESS) {
     return Object.assign({}, state, {
-      animals: action.animals,
+      shelters: action.shelters,
       loading: action.loading
     });
   } 
   return state;
 }
 
-export default animalsReducer;
+export default sheltersReducer;
