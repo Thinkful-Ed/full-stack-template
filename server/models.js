@@ -15,6 +15,7 @@ const shelterSchema = mongoose.Schema({
         additionalInfo: {type: String}
     }]
 })
+
 // Define static and instance methods
 // Example
 shelterSchema.statics.hashPassword = function(password) {
@@ -34,17 +35,6 @@ shelterSchema.methods.apiRepr = function() {
         
     }
 }
-
-// Exmaple
-// userSchema.methods.apiRepr = function() {
-//     return {
-//         id: this._id,
-//         firstName: this.firstName,
-//         lastName: this.lastName,
-//         fullName: this.fullName,
-//         favorites: this.favorites
-//     };
-// }
 
 shelterSchema.methods.validatePassword = function(inputPw) {
     return bcrypt.compare(inputPw, this.password);

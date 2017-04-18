@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-const {PORT, DATABASE_URL} =require('./config');
+const {DATABASE_URL} = require('./config');
 const {Shelter} = require('./models');
 mongoose.Promise = global.Promise;
 
@@ -17,7 +17,13 @@ const test = {
 
 // API endpoints go here!
 app.get('/api', (req, res) => {
-    return res.json({message: 'hello'});
+    Shelter
+     .find({})
+     .exec()
+     .then(data => {
+        return res.status(200).json({message: 'hello'});
+     })
+     .catch(err => res.status(500).json({error: err}))
 });
 
 // Serve the built client
