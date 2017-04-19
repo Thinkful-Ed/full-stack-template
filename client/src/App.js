@@ -10,6 +10,7 @@ import RegisterShelter from './components/registerShelter'
 import ShelterSignUp from './components/shelterSignUp';
 import ShelterLogIn from './components/shelterLogIn';
 import ShelterDashboard from './components/dashboard';
+import PetProfileFull from './components/petProfileFull';
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
           <Route exact path="/shelters/signup" component={() => this.handleLogIn(false)} />
           <Route exact path="/shelters/login/:id" component={ShelterDashboard} />
           <Route exact path="/shelters/login" component={() => this.handleLogIn(true)} />
+          <Route exact path="/search/:id" component={PetProfileFull} />
         </div>
       </Router>
     );
