@@ -1,7 +1,15 @@
 import React from 'react';
 import './petProfile.css';
+import {connect} from 'react-redux';
+import {deleteAnimal} from '../../actions';
 
-export default function PetProfile(props) {
+export function PetProfile(props) {
+
+  function removeAnimal(e) {
+    const animalId = props.animals[props.index]._id;
+    props.dispatch(deleteAnimal(props.shelterId, animalId));
+  }
+
   return (
     <div className='pet-profile'>
       <img className="dummy-image" alt="Pet"/>
@@ -11,9 +19,14 @@ export default function PetProfile(props) {
           <p>This animal needs a home</p> 
         </div>
         <div className="editing">
-          <button>Update</button>
-          <button>Remove</button>
+          <button onClick={(e) => removeAnimal(e)}>Remove</button>
         </div>       
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  animals: state.logIn.loggedInShelter.animals
+});
+
+export default connect(mapStateToProps)(PetProfile);

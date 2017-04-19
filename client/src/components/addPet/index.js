@@ -7,12 +7,13 @@ export class AddPet extends React.Component {
 
   handleAddPet(event){
     const newAnimal = {
-      type: this.refs.name.value,
+      type: this.refs.type.value,
       name: this.refs.name.value,
       age: this.refs.age.value,
-      status: this.status.value,
-      additionalInfo: this.additionalInfo.value
+      status: this.refs.status.value,
+      additionalInfo: this.refs.additionalInfo.value
     };
+    console.log(newAnimal);
     event.preventDefault();
     this.props.dispatch(toggleAddPet());
     this.props.dispatch(fetchAddNewAnimal(this.props.id, newAnimal));

@@ -10,7 +10,8 @@ export class ShelterDashboard extends React.Component{
   makePetProfiles() {
     if (this.props.shelter.animals.length > 0) {
       const animalProfiles = this.props.shelter.animals.map((animal, index) => {
-        return <PetProfile key={index} name={animal.name} type={animal.type} />;
+        return <PetProfile key={index} index={index} name={animal.name} type={animal.type} 
+                shelterId={this.props.id} />;
       });
       return animalProfiles;
     }

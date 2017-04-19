@@ -1,7 +1,9 @@
 import React from 'react';
-import './shelterSignUp.css'
+import './shelterSignUp.css';
+import {connect} from 'react-redux';
+import {fetchLogInData} from '../../actions';
 
-export default class ShelterSignUp extends React.Component {
+export class ShelterSignUp extends React.Component {
 
   postShelter() {
     const payload = {
@@ -31,6 +33,10 @@ export default class ShelterSignUp extends React.Component {
       this.refs.type.value = '';
       console.log('POST Success');
       return res.json(); 
+    })
+    .then(shelterDoc => {
+      console.log(shelterDoc);
+      this.props.dispatch(fetchLogInData(shelterDoc.id));
     })
     .catch(err => console.error(err));
   }
@@ -75,3 +81,5 @@ export default class ShelterSignUp extends React.Component {
     )
   }
 }
+
+export default connect()(ShelterSignUp);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import {BrowserRouter as Router, Route,Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import Header from './components/header';
@@ -13,13 +13,16 @@ import ShelterDashboard from './components/dashboard';
 
 class App extends Component {
 
-  handleLogIn() {
+  handleLogIn(hasAccount) {
     console.log(this.props.logIn.loggedInShelter);
     if (this.props.logIn.loggedInShelter) {
       return <Redirect to={`/shelters/login/${this.props.logIn.loggedInShelter.id}`} />;
     }
-    else {
+    else if (hasAccount) {
       return <ShelterLogIn />;
+    }
+    else {
+      return <ShelterSignUp />;
     }
   }
 
@@ -30,9 +33,9 @@ class App extends Component {
           <Header />
           <Route exact path="/search" component={Search} />
           <Route exact path="/shelters" component={RegisterShelter} />
-          <Route exact path="/shelters/signup" component={ShelterSignUp} />
+          <Route exact path="/shelters/signup" component={() => this.handleLogIn(false)} />
           <Route exact path="/shelters/login/:id" component={ShelterDashboard} />
-          <Route exact path="/shelters/login" component={() => this.handleLogIn()} />
+          <Route exact path="/shelters/login" component={() => this.handleLogIn(true)} />
         </div>
       </Router>
     );
