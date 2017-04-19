@@ -24,16 +24,17 @@ shelterSchema.statics.hashPassword = function(password) {
     return bcrypt.hash(password, 10);
 }
 
-shelterSchema.virtual('locationString').get(function(){
+shelterSchema.virtual('locationString').get(function() {
     return `${this.address} ${this.state}, ${this.zipcode}`.trim()
 });
+
 shelterSchema.methods.apiRepr = function() {
     return {
         id: this.id,
         name: this.name,
         location: this.locationString,
         type: this.type,
-        additionalInfo: this.additionalInfo    
+        animals: this.animals   
     }
 }
 

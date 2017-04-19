@@ -65,6 +65,24 @@ app.get('/api/login/:id', (req, res) => {
 		.catch(error => res.status(400).json(error));
 });
 
+app.post('/api/login/update/:id', jsonParser, (req, res) => {
+    const {newAnimal} = req.body;
+    return Shelter
+			.findByIdAndUpdate(
+				req.params.id,
+				{$push: {'animals': newAnimal}},
+				{safe: true, upsert: true, new: true}
+			).exec()
+				.then(result => {
+				console.log(result);
+				return res.status(202).json(result); 
+			})
+				.catch(error => {
+				console.error(error);
+				res.status(400).send('error');
+			});
+});
+
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
