@@ -65,7 +65,7 @@ app.get('/api/login/:id', (req, res) => {
 		.catch(error => res.status(400).json(error));
 });
 
-app.post('/api/login/update/:id', jsonParser, (req, res) => {
+app.put('/api/login/update/:id', jsonParser, (req, res) => {
     const {newAnimal} = req.body;
     return Shelter
 			.findByIdAndUpdate(
@@ -77,9 +77,9 @@ app.post('/api/login/update/:id', jsonParser, (req, res) => {
 				console.log(result);
 				return res.status(202).json(result); 
 			})
-				.catch(error => {
-				console.error(error);
-				res.status(400).send('error');
+                .catch(error => {
+                console.error(error);
+                res.status(400).send('error');
 			});
 });
 

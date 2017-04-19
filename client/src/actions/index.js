@@ -59,17 +59,22 @@ export const fetchLogInData = (id) => dispatch => {
 //     loading: false
 // });
 
+export const TOGGLE_ADD_PET = 'TOGGLE_ADD_PET';
+export const toggleAddPet = () => ({
+  type: TOGGLE_ADD_PET
+});
+
 export const fetchAddNewAnimal = (id, newAnimal) => dispatch => {
   fetch(`../../../api/login/update/${id}`, {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify(newAnimal)
   })
   .then(res => {
-    console.log('POST Success');
+    console.log('PUT Success');
     return res.json(); 
   })
   .then(result => {

@@ -2,12 +2,32 @@ import React from 'react';
 import './dashboard.css';
 import PetProfile from '../petProfile';
 import {connect} from 'react-redux';
-import {fetchAddNewAnimal} from '../../actions';
+import {toggleAddPet} from '../../actions';
+import AddPet from '../addPet'
 
 export class ShelterDashboard extends React.Component{
  
-  handleAddAnimal(event){
-    event.preventDefault();   
+  makePetProfiles() {
+    if (this.props.shelter.animals.length > 0) {
+      const animalProfiles = this.props.shelter.animals.map((animal, index) => {
+        return <PetProfile key={index} name={animal.name} type={animal.type} />;
+      });
+      return animalProfiles;
+    }
+  }
+
+  getAddPetForm() {
+      console.log(this.props);
+      if (this.props.toggleAddPet) {
+        return <AddPet />;
+      } 
+      else {
+        return <button onClick={(e)=> this.toggleAddPetForm(e)}>Add an animal</button>;
+      } 
+    }
+
+  toggleAddPetForm(event){
+    this.props.dispatch(toggleAddPet());   
   }
  
   render(){
@@ -19,9 +39,9 @@ export class ShelterDashboard extends React.Component{
             <p>{this.props.shelter.location}</p>
             <p><b>Shelter type: {this.props.shelter.type}</b></p>
             <h3>Featured Animals</h3>
-            <button>Add an animal</button>
+            {this.getAddPetForm()}
         </div>
-
+        {this.makePetProfiles()}
       </div>
     )
   }
@@ -29,7 +49,8 @@ export class ShelterDashboard extends React.Component{
 
 const mapStateToProps = (state) => ({
   id: state.logIn.loggedInShelter.id,
-  shelter: state.logIn.loggedInShelter
+  shelter: state.logIn.loggedInShelter,
+  toggleAddPet: state.toggleAddPet
 });
 
 export default connect(mapStateToProps)(ShelterDashboard);
