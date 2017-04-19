@@ -42,22 +42,11 @@ export const fetchLogInData = (id) => dispatch => {
       return shelter.json();
     })
     .then(shelterJson => {
+      console.log('log in success');
       return dispatch(logInSuccess(shelterJson));
     })
 }
 
-// Adding animal from dashboard
-// export const ADD_ANIMAL_REQUEST = 'ADD_ANIMAL_REQUEST';
-// export const addAnimalRequest = (animal) => ({
-//     type: ADD_ANIMAL_REQUEST,
-//     loading: true
-// });
-
-// export const ADD_ANIMAL_SUCCESS = 'ADD_ANIMAL_SUCCESS';
-// export const addAnimalSuccess = () => ({
-//     type: ADD_ANIMAL_SUCCESS,
-//     loading: false
-// });
 
 export const TOGGLE_ADD_PET = 'TOGGLE_ADD_PET';
 export const toggleAddPet = () => ({
@@ -78,6 +67,23 @@ export const fetchAddNewAnimal = (id, newAnimal) => dispatch => {
     return res.json(); 
   })
   .then(result => {
+    console.log('dispatching log in');
+    return dispatch(fetchLogInData(id));
+  });
+}
+
+export const deleteAnimal = (id, animalId) => dispatch => {
+  fetch(`../../../api/login/update/${id}`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "DELETE",
+    body: JSON.stringify({animalId})
+  })
+  .then(result => {
+    console.log('DELETE Success', result);
+    console.log('dispatching log in');
     return dispatch(fetchLogInData(id));
   });
 }

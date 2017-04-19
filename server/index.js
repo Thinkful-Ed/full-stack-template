@@ -66,21 +66,38 @@ app.get('/api/login/:id', (req, res) => {
 });
 
 app.put('/api/login/update/:id', jsonParser, (req, res) => {
-    const {newAnimal} = req.body;
+    const newAnimal = req.body;
     return Shelter
 			.findByIdAndUpdate(
 				req.params.id,
-				{$push: {'animals': newAnimal}},
+				{$push: {animals: newAnimal}},
 				{safe: true, upsert: true, new: true}
 			).exec()
 				.then(result => {
-				console.log(result);
 				return res.status(202).json(result); 
 			})
                 .catch(error => {
                 console.error(error);
                 res.status(400).send('error');
 			});
+});
+
+app.delete('/api/login/update/:id', jsonParser, (req, res) => {
+    const {animalId} = req.body;
+    console.log(animalId);
+    return Shelter
+        .findByIdAndUpdate(
+            req.params.id,
+            { $pull: { animals: { _id: animalId } } },
+            {safe: true}
+		).exec()
+        .then(result => {
+            return res.status(204).json({result});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({messsage: 'error'});
+        });
 });
 
 // Serve the built client

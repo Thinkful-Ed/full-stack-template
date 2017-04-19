@@ -30,10 +30,11 @@ shelterSchema.virtual('locationString').get(function() {
 
 shelterSchema.methods.apiRepr = function() {
     return {
-        id: this.id,
+        id: this._id,
         name: this.name,
         location: this.locationString,
         type: this.type,
+        email: this.email,
         animals: this.animals   
     }
 }
