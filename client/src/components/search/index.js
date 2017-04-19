@@ -15,8 +15,9 @@ export function Search(props) {
   let animals = [];
   if (props.shelters.length > 0) {
     props.shelters.forEach((shelter, forEachIndex) => {
+      console.log(shelter.name)
       let animalsCurr = shelter.animals.map((animal, index) => {
-        return <PetProfile key={`${index}${forEachIndex}`} name={animal.name} type={animal.type} />
+        return <PetProfile petId={animal._id} key={`${index}${forEachIndex}`} name={animal.name} type={animal.type} shelter={shelter.name || shelter.shelter} />
       });
       animals.push(animalsCurr);
     });
