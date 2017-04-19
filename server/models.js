@@ -34,6 +34,7 @@ shelterSchema.methods.apiRepr = function() {
         name: this.name,
         location: this.locationString,
         type: this.type,
+        email: this.email,
         animals: this.animals   
     }
 }
