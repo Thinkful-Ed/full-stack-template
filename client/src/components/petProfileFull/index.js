@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 export function PetProfileFull(props) {
   console.log(props.shelters);
   let animalObj;
+  let shelterObj;
   props.shelters.forEach(shelter => {
     shelter.animals.forEach(animal => {
       if (props.match.params.id === animal._id) {
         animalObj = animal;
+        shelterObj = shelter;
       }
     })
   })
@@ -21,10 +23,10 @@ export function PetProfileFull(props) {
         <div className="stats">
           <h1>Name: {animalObj.name}</h1>
           <p>Age: {animalObj.age}</p>
-          <p>Shelter:</p>
-          <p>Location: </p>
+          <p>Shelter: {shelterObj.name || shelterObj.shelter }</p>
+          <p>Location: {shelterObj.address} {shelterObj.state}, {shelterObj.zipcode} </p>
           <p>Status: {animalObj.status}</p>
-          <p>Additional Info: </p>
+          <p>Additional Info: {animalObj.additionalInfo}</p>
           <p className="blurb">This is a sweet and caring pet that needs a home!</p>
         </div>
       </div>
