@@ -4,12 +4,40 @@ const mongoose = require('mongoose');
 const {DATABASE_URL} = require('./config');
 const {Shelter} = require('./models');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const { BasicStrategy } = require('passport-http');
 
 const jsonParser = bodyParser.json();
 
 mongoose.Promise = global.Promise;
 
 const app = express();
+
+// Define Basic strategy for authentication
+const basicStrategy = new BasicStrategy((username, password, callback) => {
+	let shelter;
+	Shelter.findOne({email: username}).exec()
+		.then(_shelter => {
+			shelter = _shelter;
+			if (!shelter) {
+				return callback(null, false, {message: `Account ${username} does not exist` });
+			}
+			return _shelter.validatePassword(password);
+		})
+		.then(isValid => {
+			console.log('isValid: '+isValid);
+			if (!isValid) {
+      	return callback(null, false, {message: `Incorrect password for account ${username}`});
+    	}
+			return callback(null, shelter.apiRepr());
+		})
+		.catch(err => {
+    	console.error(err);
+  	});
+});
+
+passport.use(basicStrategy);
+app.use(passport.initialize());
 
 // API endpoints go here!
 app.get('/api', (req, res) => {
@@ -55,14 +83,8 @@ app.post('/api', jsonParser, (req, res) => {
     });
 });
 
-app.get('/api/login/:id', (req, res) => {
-	return Shelter
-		.findById(req.params.id)
-		.exec()
-		.then(shelter => {
-			return res.status(200).json(shelter.apiRepr());
-		})
-		.catch(error => res.status(400).json(error));
+app.get('/api/login', passport.authenticate('basic', {session: false}), (req, res) => {
+	return res.status(200).json(req.user);
 });
 
 app.put('/api/login/update/:id', jsonParser, (req, res) => {
@@ -76,9 +98,9 @@ app.put('/api/login/update/:id', jsonParser, (req, res) => {
 				.then(result => {
 				return res.status(202).json(result); 
 			})
-                .catch(error => {
-                console.error(error);
-                res.status(400).send('error');
+				.catch(error => {
+				console.error(error);
+				res.status(400).send('error');
 			});
 });
 
