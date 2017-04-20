@@ -47,7 +47,10 @@ export const fetchLogInData = (id) => dispatch => {
     })
 }
 
-
+export const LOG_OUT ='LOG_OUT';
+export const logOut = () => ({
+  type: LOG_OUT
+})
 export const TOGGLE_ADD_PET = 'TOGGLE_ADD_PET';
 export const toggleAddPet = () => ({
   type: TOGGLE_ADD_PET

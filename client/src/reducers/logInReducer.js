@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS } from '../actions';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT } from '../actions';
 
 const initialState = {
   loggedInShelter: false,
@@ -15,6 +15,11 @@ const logInReducer = (state=initialState, action) => {
       loading: false
     });
   } 
+  else if (action.type === LOG_OUT) {
+    return Object.assign({}, state, {
+    loggedInShelter: false
+    })
+  }
   return state;
 }
 
