@@ -4,6 +4,7 @@ import sheltersReducer from './sheltersReducer';
 import logInReducer from './logInReducer';
 import toggleAddPetReducer from './toggleAddPetReducer';
 
+
 const rootReducer = combineReducers({
   shelters: sheltersReducer,
   logIn: logInReducer,

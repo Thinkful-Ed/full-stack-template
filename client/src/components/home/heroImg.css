@@ -9,3 +9,20 @@
   font-size: 60px;
   color: #f18f01;
 }
+.hero-image{
+  padding-top: 0;
+  margin-top: 0;
+}
+.hero-image h1{
+  margin: 0;
+}
+.home-link{
+  width: 25%;
+}
+.home-link-container{
+  display: flex;
+  justify-content: space-around;
+}
+.home-link{
+  text-align: center;
+}
