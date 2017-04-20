@@ -1,0 +1,11 @@
+.heroImg{
+  background-size:cover;
+  height: 500px;
+  margin-bottom: 0;
+}
+.tagline{
+  text-align: center;
+  font-family: 'Sansita', sans-serif;
+  font-size: 60px;
+  color: #f18f01;
+}

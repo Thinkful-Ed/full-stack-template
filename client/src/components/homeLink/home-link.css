@@ -1,0 +1,8 @@
+.home-link{
+  width: 25%;
+}
+.home-link-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;;
+}

@@ -7,10 +7,10 @@ export default function Header(props) {
     <header>
       <div className='navbar'>
         <ul>
-          <li>adoptme</li>
+          <li><Link style={{ textDecoration: 'none' }}to='/'>adoptME</Link></li>
           <li>About</li>
-          <li><Link to='/search'>Search</Link></li>
-          <li><Link to='/shelters'>Shelters</Link></li>
+          <li><Link style={{ textDecoration: 'none' }} to='/search'>Search</Link></li>
+          <li><Link style={{ textDecoration: 'none' }} to='/shelters'>Shelters</Link></li>
         </ul>
       </div>
     </header>
