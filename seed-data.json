@@ -1,0 +1,102 @@
+ {
+  "shelter": "Caring Kelley's Animal Shelter",
+  "location": "California",
+  "address": "123 Dummy Street",
+  "zipcode": 123456,
+  "type": "dogs",
+  "animals": [
+    { 
+      "type": "dog",
+      "name": "Petunia",
+      "age": "4 years",
+      "status": "danger",
+      "additionalInfo": "special needs"
+    },
+    { 
+      "type": "dog",
+      "name": "Heather",
+      "age": "10 years",
+      "status": "adopted",
+      "additionalInfo": "N/A"
+    },
+    { 
+      "type": "dog",
+      "name": "Rover",
+      "age": "2 years",
+      "status": "searching",
+      "additionalInfo": "N/A"
+    },
+    { 
+      "type": "dog",
+      "name": "Buttercup",
+      "age": "3 months",
+      "status": "searching",
+      "additionalInfo": "runt"
+    },
+    { 
+      "type": "dog",
+      "name": "UnderDog",
+      "age": "3 years",
+      "status": "danger",
+      "additionalInfo": "has cancer"
+    },
+    { 
+      "type": "dog",
+      "name": "Oswald",
+      "age": "15 years",
+      "status": "danger",
+      "additionalInfo": "not active"
+    }
+  ]
+}
+{
+  "shelter": "Gordon's Animal Shelter/Taxidermy",
+  "location": "Utah",
+  "address": "13 Roadkill Lane",
+  "zipcode": 555555,
+  "type": "various",
+  "animals": [
+    { 
+      "type": "dog",
+      "name": "Petunia",
+      "age": "4 years",
+      "status": "danger",
+      "additionalInfo": "special needs"
+    },
+    { 
+      "type": "dog",
+      "name": "Petunia",
+      "age": "4 years",
+      "status": "danger",
+      "additionalInfo": "special needs"
+    },
+      { 
+      "type": "cat",
+      "name": "Whiskers",
+      "age": "2 years",
+      "status": "searching",
+      "additionalInfo": "abandoned"
+    },
+    { 
+      "type": "rabbit",
+      "name": "Horase",
+      "age": "2 years",
+      "status": "searching",
+      "additionalInfo": "stray"
+    },
+    { 
+      "type": "parrot",
+      "name": "Pauley",
+      "age": "8 years",
+      "status": "danger",
+      "additionalInfo": "abandoned"
+    },
+    { 
+      "type": "snake",
+      "name": "Petey",
+      "age": "2 years",
+      "status": "searching",
+      "additionalInfo": "abandoned"
+    }
+  ]
+}

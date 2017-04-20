@@ -1,0 +1,43 @@
+.pet-profile{
+  position: relative;
+  margin-top: 30px;
+  display: flex;
+}
+
+.dummy-image{
+  border: 1px solid grey;
+  background-color: lightgrey;
+  border-radius: 3px;
+  height: 120px;
+  width: 120px;
+}
+.info{
+  padding-left: 20px;
+  width: 300px;
+}
+
+.info h3{
+  margin-top: 0;
+}
+.info h3 {
+  margin: 0;
+  padding-bottom: 10px;
+}
+.info p {
+  line-height: 23px;
+  padding: 0;
+  margin: 0;
+}
+.editing{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+}
+.editing button{
+  width: 50%;
+}
+button {
+  width: 100px;
+  height: 30px;
+}

@@ -1,0 +1,24 @@
+.dummy-image-full {
+  border: 1px solid grey;
+  background-color: lightgrey;
+  border-radius: 3px;
+  height: 300px;
+  width: 300px;
+}
+.pet-profile-container {
+  padding-top: 30px;
+  width: 700px;
+  margin: 0 auto;
+}
+.general-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.stats {
+  padding-top: 0;
+  margin: 0 0 0 50px;
+  width: 300px; 
+}
+.history {
+}

@@ -1,0 +1,8 @@
+.log-in-container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.log-in-container input{
+  width: 100%;
+}

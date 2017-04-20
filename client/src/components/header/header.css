@@ -1,0 +1,27 @@
+header {
+  background-color: #006e90;
+  font-size: 22px;
+}
+
+.navbar {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.navbar ul {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+  justify-content: space-around;
+  margin: 0;
+}
+
+.navbar ul li {
+  padding: 10px 30px;
+}
+
+.navbar ul li:first-child {
+  background-color: #f18f01;
+  font-size: 24px;
+}

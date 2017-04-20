@@ -1,0 +1,11 @@
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.btn-container button {
+  width: 100%;
+}

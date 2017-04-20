@@ -1,21 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import Header from './components/header';
+import Search from './components/search';
+import RegisterShelter from './components/registerShelter'
+import ShelterSignUp from './components/shelterSignUp';
+import ShelterLogIn from './components/shelterLogIn';
+import ShelterDashboard from './components/dashboard';
+import PetProfileFull from './components/petProfileFull';
+
 class App extends Component {
+
+  handleLogIn(hasAccount) {
+    console.log(this.props.logIn.loggedInShelter);
+    if (this.props.logIn.loggedInShelter) {
+      return <Redirect to={'/shelters/dashboard'} />;
+    }
+    else if (hasAccount) {
+      return <ShelterLogIn />;
+    }
+    else {
+      return <ShelterSignUp />;
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <Router>
+        <div>
+          <Header />
+          <Route exact path="/search" component={Search} />
+          <Route exact path="/shelters" component={RegisterShelter} />
+          <Route exact path="/shelters/signup" component={() => this.handleLogIn(false)} />
+          <Route exact path="/shelters/dashboard" component={ShelterDashboard} />
+          <Route exact path="/shelters/login" component={() => this.handleLogIn(true)} />
+          <Route exact path="/search/:id" component={PetProfileFull} />
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      </Router>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  logIn: state.logIn
+});
+
+export default connect(mapStateToProps)(App);
