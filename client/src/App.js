@@ -19,7 +19,7 @@ class App extends Component {
   handleLogIn(hasAccount) {
     console.log(this.props.logIn.loggedInShelter);
     if (this.props.logIn.loggedInShelter) {
-      return <Redirect to={`/shelters/login/${this.props.logIn.loggedInShelter.id}`} />;
+      return <Redirect to={'/shelters/dashboard'} />;
     }
     else if (hasAccount) {
       return <ShelterLogIn />;
@@ -38,7 +38,7 @@ class App extends Component {
           <Route exact path="/search" component={Search} />
           <Route exact path="/shelters" component={RegisterShelter} />
           <Route exact path="/shelters/signup" component={() => this.handleLogIn(false)} />
-          <Route exact path="/shelters/login/:id" component={ShelterDashboard} />
+          <Route exact path="/shelters/dashboard" component={ShelterDashboard} />
           <Route exact path="/shelters/login" component={() => this.handleLogIn(true)} />
           <Route exact path="/search/:id" component={PetProfileFull} />
           <Footer />

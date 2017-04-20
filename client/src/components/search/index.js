@@ -4,60 +4,94 @@ import {fetchSheltersData} from '../../actions';
 import './search.css';
 import PetProfile from '../petProfile';
 
-export function Search(props) {
-  
-  function handleSearch(e) {
+export class Search extends React.Component {
+
+  handleSearch(e) {
     e.preventDefault();
-    props.dispatch(fetchSheltersData());
+    this.props.dispatch(fetchSheltersData(this.inputType.value, this.inputZip.value));
   }
 
   // map over props.shelters if the data has been retrieved already
-  let animals = [];
-  if (props.shelters.length > 0) {
-    props.shelters.forEach((shelter, forEachIndex) => {
-      console.log(shelter.name)
-      let animalsCurr = shelter.animals.map((animal, index) => {
-        return <PetProfile petId={animal._id} key={`${index}${forEachIndex}`} index={index} name={animal.name} type={animal.type} shelter={shelter.name || shelter.shelter} />
+  getAnimals() {
+    let animals = [];
+    if (this.props.shelters.length > 0) {
+      this.props.shelters.forEach((shelter, forEachIndex) => {
+        let animalsCurr = shelter.animals.map((animal, index) => {
+          return <PetProfile petId={animal._id} key={`${index}${forEachIndex}`} index={index} 
+          name={animal.name} type={animal.type} dashboardView={false}
+          shelter={shelter.name || shelter.shelter} shelterZip={shelter.zipcode}/>
+        });
+        animals.push(animalsCurr);
       });
-      animals.push(animalsCurr);
-    });
 
-    animals = animals.reduce((flat, toFlatten) => {
+      animals = animals.reduce((flat, toFlatten) => {
       return flat.concat(toFlatten);
-    }, []);
+      }, []);
+      
+      //Filter animals here...
+      let filteredAnimals = this.filterAnimals(animals);
+      if (filteredAnimals.length === 0) {
+        return animals;
+      }
+      else {
+        return filteredAnimals;
+      }
+    }
   }
 
-  return (
-    <div>
+  filterAnimals(animals) {
+    const filterType = this.props.filterType.trim().toLowerCase();
+    const filterZip = this.props.filterZip.trim().toLowerCase();
+    const checkFilterType = filterType !== "" && filterType !== " " && filterType !== undefined;
+    const checkFilterZip = filterZip !== "" && filterZip !== " " && filterZip !== undefined;
+    if (checkFilterType && checkFilterZip) {
+      return animals.filter(animal => {
+        return animal.props.type.toLowerCase() === filterType && animal.props.shelterZip.toLowerCase() === filterZip;
+      });
+    }
+    else if (checkFilterType) {
+      return animals.filter(animal => {
+        return animal.props.type.toLowerCase() === filterType;
+      });
+    }
+    else if (checkFilterZip) {
+      return animals.filter(animal => {
+        return animal.props.shelterZip.toLowerCase() === filterZip;
+      });
+    } 
+    return animals;
+  }
 
-      <div className='search-container'>
-        <div className='form-container'>
-          <h2>Animal Search!</h2> 
-          <form>
+  render() {
+    return (
+      <div>
 
-            <label htmlFor='type'>Seach by pet type</label><br />
-            <input placeholder='Type of pet' type='text' id='type' /><br />
+        <div className='search-container'>
+          <div className='form-container'>
+            <h2>Animal Search!</h2> 
+            <form>
 
-            <label htmlFor='zip'>Zip code</label><br />
-            <input placeholder='Zip code' type='text' id='zip' /><br />
+              <label htmlFor='type'>Seach by pet type</label><br />
+              <input placeholder='Type of pet' type='text' id='type' ref={input => this.inputType = input} /><br />
 
-            <label htmlFor='shelter'>Shelter</label><br />
-            <input placeholder='Shelter name' type='text' id='shelter' /><br />
-            
-            <input type='radio' name='radio' value="InNeed" />I'm looking for a pet in need<br />
+              <label htmlFor='zip'>Zip code</label><br />
+              <input placeholder='Zip code' type='text' id='zip' ref={input => this.inputZip = input} /><br />
 
-            <button onClick={(e) => handleSearch(e)}>Search</button>
+              <button onClick={(e) => this.handleSearch(e)}>Search</button>
 
-          </form>
+            </form>
+          </div>
         </div>
+        {this.getAnimals()}
       </div>
-      {animals}
-    </div>
-  );
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
-  shelters: state.shelters.data
+  shelters: state.shelters.data,
+  filterType: state.shelters.filterType,
+  filterZip: state.shelters.filterZip
 });
 
 export default connect(mapStateToProps)(Search);
