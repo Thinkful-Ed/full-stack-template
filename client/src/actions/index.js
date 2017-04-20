@@ -5,20 +5,22 @@ export const fetchSheltersRequest = () => ({
 });
 
 export const FETCH_SHELTERS_SUCCESS = 'FETCH_SHELTERS_SUCCESS';
-export const fetchSheltersSuccess = shelters => ({
+export const fetchSheltersSuccess = (shelters, filterType, filterZip) => ({
     type: FETCH_SHELTERS_SUCCESS,
     loading: false,
-    shelters 
+    shelters,
+    filterType,
+    filterZip 
 });
 
-export const fetchSheltersData = () => dispatch => {
+export const fetchSheltersData = (filterType, filterZip) => dispatch => {
   dispatch(fetchSheltersRequest());
   fetch('../../../api')
     .then(shelters => {
       return shelters.json();
     })
     .then(sheltersJson => {
-      return dispatch(fetchSheltersSuccess(sheltersJson));
+      return dispatch(fetchSheltersSuccess(sheltersJson, filterType, filterZip));
     })
 }
 

@@ -7,6 +7,12 @@ import {deleteAnimal} from '../../actions';
 
 export function PetProfile(props) {
 
+  function getBtn() {
+    if (props.dashboardView) {
+      return <button onClick={(e) => removeAnimal(e)}>Remove</button>;
+    }
+  }
+
   function removeAnimal(e) {
     const animalId = props.animals[props.index]._id;
     props.dispatch(deleteAnimal(props.shelterId, animalId));
@@ -22,7 +28,7 @@ export function PetProfile(props) {
           <p>This animal needs a home</p> 
         </div>
         <div className="editing">
-          <button onClick={(e) => removeAnimal(e)}>Remove</button>
+          {getBtn()}
         </div>       
     </div>
 
