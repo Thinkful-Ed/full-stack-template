@@ -19,7 +19,7 @@ export class Search extends React.Component {
         let animalsCurr = shelter.animals.map((animal, index) => {
           return <PetProfile petId={animal._id} key={`${index}${forEachIndex}`} index={index} 
           name={animal.name} type={animal.type} dashboardView={false}
-          shelter={shelter.name || shelter.shelter} />
+          shelter={shelter.name || shelter.shelter} shelterZip={shelter.zipcode}/>
         });
         animals.push(animalsCurr);
       });
@@ -27,10 +27,39 @@ export class Search extends React.Component {
       animals = animals.reduce((flat, toFlatten) => {
       return flat.concat(toFlatten);
       }, []);
-
+      
       //Filter animals here...
-      return animals
+      let filteredAnimals = this.filterAnimals(animals);
+      if (filteredAnimals.length === 0) {
+        return animals;
+      }
+      else {
+        return filteredAnimals;
+      }
     }
+  }
+
+  filterAnimals(animals) {
+    const filterType = this.props.filterType.trim().toLowerCase();
+    const filterZip = this.props.filterZip.trim().toLowerCase();
+    const checkFilterType = filterType !== "" && filterType !== " " && filterType !== undefined;
+    const checkFilterZip = filterZip !== "" && filterZip !== " " && filterZip !== undefined;
+    if (checkFilterType && checkFilterZip) {
+      return animals.filter(animal => {
+        return animal.props.type.toLowerCase() === filterType && animal.props.shelterZip.toLowerCase() === filterZip;
+      });
+    }
+    else if (checkFilterType) {
+      return animals.filter(animal => {
+        return animal.props.type.toLowerCase() === filterType;
+      });
+    }
+    else if (checkFilterZip) {
+      return animals.filter(animal => {
+        return animal.props.shelterZip.toLowerCase() === filterZip;
+      });
+    } 
+    return animals;
   }
 
   render() {

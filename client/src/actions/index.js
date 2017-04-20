@@ -37,9 +37,15 @@ export const logInSuccess = shelter => ({
     shelter 
 });
 
-export const fetchLogInData = (id) => dispatch => {
+export const fetchLogInData = (email, password) => dispatch => {
   dispatch(logInRequest());
-  fetch(`../../../api/login/${id}`)
+  fetch('../../../api/login', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Basic ' + btoa(email+':'+password),
+      'Credentials': 'same-origin'
+    }
+  })
     .then(shelter => {
       return shelter.json();
     })
