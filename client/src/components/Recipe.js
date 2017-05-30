@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class AddRecipe extends React.Component {
+export class Recipe extends React.Component {
   onAdd(event){
     event.preventDefault();
     const recipeValue = this.recipeInput.value;
@@ -17,4 +17,4 @@ export class AddRecipe extends React.Component {
   }
 }
 
-export default AddRecipe;
+export default Recipe;
