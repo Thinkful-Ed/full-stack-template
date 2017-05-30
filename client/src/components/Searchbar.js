@@ -19,7 +19,7 @@ export class Searchbar extends React.component {
         <label htmlFor="location-input">Near</label>
         <input type="text" id="location-input" placeholder="Tulsa, OK" required
                 ref={input => this.locationInput = input} />
-        <button>Search</button>
+        <button type="submit">Search</button>
       </form>
     )
   }
