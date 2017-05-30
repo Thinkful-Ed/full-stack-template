@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {FETCH_RESTAURANT_REQUEST, FETCH_RESTAURANT_SUCCESS,FETCH_RESTAURANT_FAILURE} from '../actions';
 
 const initialState = {
@@ -6,7 +7,7 @@ const initialState = {
   error: null
 }
 
-export default (state, action) => {
+const reducer = (state, action) => {
   state = state || initialState;
   switch (action.type) {
     case FETCH_RESTAURANT_REQUEST:
@@ -18,3 +19,5 @@ export default (state, action) => {
       return state;
   }
 }
+
+export default reducer;

@@ -3,6 +3,11 @@ export const submitRecipe = (recipe) => ({
   type: SUBMIT_RECIPE,
   recipe
 })
+export const SELECT_RESTAURANT = 'SELECT_RESTAURANT'
+export const selectRestaurant = (restaurant) => ({
+  type: SELECT_RESTAURANT,
+  restaurant
+})
 export const FETCH_RESTAURANT_REQUEST = 'FETCH_RESTAURANT_REQUEST'
 export const fetchRestaurantRequest = () => ({
   type: FETCH_RESTAURANT_REQUEST
