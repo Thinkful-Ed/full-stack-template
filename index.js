@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === 'production') {
     const runServer = require('./server').runServer;
     // Just run the server
     runServer(process.env.PORT || 8080);
-}
 else {
     const app = express();
     // Proxy everything through to Create React App
