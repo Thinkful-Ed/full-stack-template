@@ -1,9 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {submitRecipe} from '../actions';
 
 export class Recipe extends React.Component {
-  onAdd(event){
+  onAdd(event)
     event.preventDefault();
     const recipeValue = this.recipeInput.value;
+    this.props.dispatch(submitRecipe(recipeValue));
     this.recipeInput.value = '';
   }
 
@@ -17,4 +20,8 @@ export class Recipe extends React.Component {
   }
 }
 
-export default Recipe;
+export const mapStateToProps = state => ({
+
+})
+
+module.exports = connect(mapStateToProps)(Recipe);
