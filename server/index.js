@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 mongoose.Promise = global.Promise;
 
 // API endpoints go here!
-app.get('/restaurants', (req, res) => {
+app.get('/api/restaurants', (req, res) => {
   Restaurants
     .find()
     .then(restaurant => {
@@ -37,7 +37,7 @@ app.get('/restaurants', (req, res) => {
     });
 });
 
-app.get('/restaurants/:id', (req, res) => {
+app.get('/api/restaurants/:id', (req, res) => {
   Restaurants
     .findById(req.params.id)
     .then(restaurant => res.json(restaurant.apiRepr()))
@@ -53,7 +53,7 @@ const opts = {
   }
 }
 
-app.post('/api', (req, res, next) => {
+app.post('/api/yelp', (req, res, next) => {
   console.log(req.body);
   fetch(`https://api.yelp.com/v3/businesses/search?term=${req.body.search}&location=${req.body.location}`, opts)
   .then(data => {
@@ -63,7 +63,7 @@ app.post('/api', (req, res, next) => {
   });
 })
 
-app.post('/restaurants', (req, res) => {
+app.post('/api/restaurants', (req, res) => {
   const requiredFields = ['yelpId', 'recipes', 'ingredients', 'instructions'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -88,7 +88,7 @@ app.post('/restaurants', (req, res) => {
     });
 });
 
-app.put('/restaurants/:id', (req, res) => {
+app.put('/api/restaurants/:id', (req, res) => {
   if (req.params.id !== req.body.id) {
     const message = (
       `Request path id (${req.params.id}) and request body id `
@@ -111,7 +111,7 @@ app.put('/restaurants/:id', (req, res) => {
     .catch(err => res.status(500).json({message: 'Something went awry'}));
 });
 
-app.delete('/restaurants/:id', (req, res) => {
+app.delete('/api/restaurants/:id', (req, res) => {
   Restaurant
     .findByIdAndRemove(req.params.id)
     .then(() => {
