@@ -2,7 +2,9 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
+import {YelpToken} from '../client/utils/constants/yelp.config';
 
 const {Restaurants} = require('./models');
 
@@ -35,6 +37,22 @@ app.get('/restaurants/:id', (req, res) => {
       res.status(500).json({error: 'something went awry'});
     });
 });
+const opts = {
+  headers: {
+    authorization: `Bearer ${YelpToken}`
+  }
+}
+app.get('/api', (req, res) => {
+  fetch('https://api.yelp.com/v3/businesses/search?term=food&location=74136', opts)
+    .then(data=>{
+      if(!data.ok){
+        return console.log('failed');
+      }
+      return data.json()
+      }).then(data=>{
+        console.log(data);
+    })
+})
 
 app.post('/restaurants', (req, res) => {
   const requiredFields = ['yelpId', 'recipes', 'ingredients', 'instructions'];

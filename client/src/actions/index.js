@@ -1,4 +1,4 @@
-import YelpToken from '../utils/constants/yelp.config';
+
 
 export const SUBMIT_RECIPE = 'SUBMIT_RECIPE'
 export const submitRecipe = (recipe) => ({
@@ -24,14 +24,14 @@ export const fetchRestaurantFailure = () => ({
   type: FETCH_RESTAURANT_FAILURE
 })
 
-const opts = {
-  headers: {
-    authorization: `Bearer ${YelpToken}`
-  }
-}
+// const opts = {
+//   headers: {
+//     authorization: `Bearer ${YelpToken}`
+//   }
+// }
 
 export const fetchRestaurants = () => dispatch => {
-  fetch('https://api.yelp.com/v3/businesses/search?term=food&location=74136', opts)
+  fetch('http://localhost:3000/api')
     .then(data=>{
       if(!data.ok){
         return console.log('failed');
@@ -41,3 +41,5 @@ export const fetchRestaurants = () => dispatch => {
         console.log(data);
     })
 }
+
+// https://api.yelp.com/v3/businesses/search?term=food&location=74136

@@ -1,7 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {fetchRestaurants} from '../actions'
+import Link from 'react-router-dom';
 
-export class Searchbar extends React.component {
+export class Searchbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.componentDidMount = this.componentDidMount.bind(this)
+  }
+
   onSearch(event){
     event.preventDefault();
       const searchValue = this.searchInput.value;
@@ -9,6 +16,11 @@ export class Searchbar extends React.component {
       this.searchInput.value = '';
       this.locationInput.value = '';
   }
+  componentDidMount() {
+    // console.log(this.props.dispatch(fetchRestaurants()));
+    return this.props.dispatch(fetchRestaurants())
+  }
+
 
   render() {
     return(
