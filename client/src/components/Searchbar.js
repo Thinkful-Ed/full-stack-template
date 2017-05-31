@@ -13,11 +13,9 @@ export class Searchbar extends React.Component {
     event.preventDefault();
       const searchValue = this.searchInput.value;
       const locationValue = this.locationInput.value;
-      this.searchInput.value = '';
-      this.locationInput.value = '';
+      this.form.reset();
   }
   componentDidMount() {
-    // console.log(this.props.dispatch(fetchRestaurants()));
     return this.props.dispatch(fetchRestaurants())
   }
 

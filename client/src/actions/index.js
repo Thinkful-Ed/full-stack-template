@@ -24,7 +24,7 @@ export const fetchRestaurantFailure = () => ({
   type: FETCH_RESTAURANT_FAILURE
 })
 
-export const fetchRestaurants = () => dispatch => {
+export const fetchRestaurants = searchQuery => dispatch => {
   fetch('http://localhost:8080/api')
     .then(data=>{
       if(!data.ok){

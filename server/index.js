@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const fetch = require('node-fetch');
 
-const {YelpToken} = '../client/utils/constants/yelp.config';
+const YelpToken = '../client/src/utils/constants/yelp.config';
 
 const {Restaurants} = require('./models/restaurant.model');
 
@@ -46,20 +46,20 @@ app.get('/restaurants/:id', (req, res) => {
       res.status(500).json({error: 'something went awry'});
     });
 });
+
 const opts = {
   headers: {
     authorization: `Bearer ZF5anEzfvnW_pT1faLLDqXE1bWymfnnbGxFtsxYF8dBOFlCp8vbtdU4ywIxK1xdNcfiuV7spk_SDvGUyKFPFsubVc_ezBoxhEIXCHvhfYEYkfX0_xFc7MO9fCwAuWXYx`
   }
 }
-app.get('/api', (req, res, next) => {
-  console.log(opts);
-  fetch('https://api.yelp.com/v3/businesses/search?term=food&location=74136', opts)
-  .then(function(data) {
-      return data.json();
-  }).then(function(json) {
-      return res.json(json)
-  });
 
+app.get('/api', (req, res, next) => {
+  fetch('https://api.yelp.com/v3/businesses/search?term=pizza&location=74136', opts)
+  .then(data => {
+      return data.json();
+  }).then(data => {
+      return res.json(data)
+  });
 })
 
 app.post('/restaurants', (req, res) => {
