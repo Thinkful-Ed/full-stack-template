@@ -25,17 +25,13 @@ export const fetchRestaurantFailure = () => ({
 })
 
 export const fetchRestaurants = searchQuery => dispatch => {
-  const query = {
-    search: searchQuery.search,
-    location: searchQuery.location
-  }
   fetch('http://localhost:8080/api', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(query)
+    body: JSON.stringify(searchQuery)
   })
     .then(data=>{
 
