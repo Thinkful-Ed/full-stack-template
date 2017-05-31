@@ -2,13 +2,26 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const fetch = require('node-fetch');
 
+const YelpToken = '../client/src/utils/constants/yelp.config';
 
-const {Restaurants} = require('./models');
+const {Restaurants} = require('./models/restaurant.model');
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
+
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
 mongoose.Promise = global.Promise;
 
 // API endpoints go here!
@@ -19,7 +32,7 @@ app.get('/restaurants', (req, res) => {
       res.json(restaurants.map(restaurant => restaurant.apiRepr()));
     })
     .catch(err => {
-      console.error(err));
+      console.error(err);
       res.status(500).json({error: 'something went awry'});
     });
 });
@@ -33,6 +46,22 @@ app.get('/restaurants/:id', (req, res) => {
       res.status(500).json({error: 'something went awry'});
     });
 });
+
+const opts = {
+  headers: {
+    authorization: `Bearer ZF5anEzfvnW_pT1faLLDqXE1bWymfnnbGxFtsxYF8dBOFlCp8vbtdU4ywIxK1xdNcfiuV7spk_SDvGUyKFPFsubVc_ezBoxhEIXCHvhfYEYkfX0_xFc7MO9fCwAuWXYx`
+  }
+}
+
+app.post('/api', (req, res, next) => {
+  console.log(req.body);
+  fetch(`https://api.yelp.com/v3/businesses/search?term=${req.body.search}&location=${req.body.location}`, opts)
+  .then(data => {
+      return data.json();
+  }).then(data => {
+      return res.json(data)
+  });
+})
 
 app.post('/restaurants', (req, res) => {
   const requiredFields = ['yelpId', 'recipes', 'ingredients', 'instructions'];

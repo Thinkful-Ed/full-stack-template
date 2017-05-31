@@ -21,9 +21,11 @@
   "author": "Joe Turner <jturner@thinkful.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.3",
     "cross-env": "^3.1.4",
     "express": "^4.14.1",
     "http-proxy-middleware": "^0.17.3",
+    "node-fetch": "^1.7.0",
     "npm-run-all": "^4.0.1",
     "xp": "^1.0.1"
   }

@@ -1,3 +1,5 @@
+
+
 export const SUBMIT_RECIPE = 'SUBMIT_RECIPE'
 export const submitRecipe = (recipe) => ({
   type: SUBMIT_RECIPE,
@@ -21,3 +23,24 @@ export const FETCH_RESTAURANT_FAILURE = 'FETCH_RESTAURANT_FAILURE'
 export const fetchRestaurantFailure = () => ({
   type: FETCH_RESTAURANT_FAILURE
 })
+
+export const fetchRestaurants = searchQuery => dispatch => {
+  dispatch(fetchRestaurantRequest())
+  fetch('http://localhost:8080/api', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(searchQuery)
+  })
+    .then(data=>{
+
+      if(!data.ok){
+        return dispatch(fetchRestaurantFailure())
+      }
+      return data.json()
+      }).then(data=>{
+        return dispatch(fetchRestaurantSuccess(data.businesses))
+    })
+}
