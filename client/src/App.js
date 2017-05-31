@@ -12,9 +12,8 @@ export function App(props) {
     <Router>
       <div>
         <Searchbar/>
+        <Route exact path="/" component={RestaurantListing}/>
         <Route exact path="/:restaurantId" component={Restaurant}/>
-        <RestaurantListing />
-
       </div>
     </Router>
   )
