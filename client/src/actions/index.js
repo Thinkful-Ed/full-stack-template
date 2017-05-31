@@ -26,7 +26,7 @@ export const fetchRestaurantFailure = () => ({
 
 export const fetchRestaurants = searchQuery => dispatch => {
   dispatch(fetchRestaurantRequest())
-  fetch('http://localhost:8080/api', {
+  fetch('/api/yelp', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
