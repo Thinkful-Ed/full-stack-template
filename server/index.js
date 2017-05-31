@@ -3,15 +3,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const fetch = require('node-fetch');
 
-import {YelpToken} from '../client/utils/constants/yelp.config';
+const {YelpToken} = '../client/utils/constants/yelp.config';
 
-const {Restaurants} = require('./models');
+const {Restaurants} = require('./models/restaurant.model');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
+
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
 
 mongoose.Promise = global.Promise;
 
@@ -23,7 +32,7 @@ app.get('/restaurants', (req, res) => {
       res.json(restaurants.map(restaurant => restaurant.apiRepr()));
     })
     .catch(err => {
-      console.error(err));
+      console.error(err);
       res.status(500).json({error: 'something went awry'});
     });
 });
@@ -39,19 +48,18 @@ app.get('/restaurants/:id', (req, res) => {
 });
 const opts = {
   headers: {
-    authorization: `Bearer ${YelpToken}`
+    authorization: `Bearer ZF5anEzfvnW_pT1faLLDqXE1bWymfnnbGxFtsxYF8dBOFlCp8vbtdU4ywIxK1xdNcfiuV7spk_SDvGUyKFPFsubVc_ezBoxhEIXCHvhfYEYkfX0_xFc7MO9fCwAuWXYx`
   }
 }
-app.get('/api', (req, res) => {
+app.get('/api', (req, res, next) => {
+  console.log(opts);
   fetch('https://api.yelp.com/v3/businesses/search?term=food&location=74136', opts)
-    .then(data=>{
-      if(!data.ok){
-        return console.log('failed');
-      }
-      return data.json()
-      }).then(data=>{
-        console.log(data);
-    })
+  .then(function(data) {
+      return data.json();
+  }).then(function(json) {
+      return res.json(json)
+  });
+
 })
 
 app.post('/restaurants', (req, res) => {

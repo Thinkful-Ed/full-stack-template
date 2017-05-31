@@ -24,22 +24,14 @@ export const fetchRestaurantFailure = () => ({
   type: FETCH_RESTAURANT_FAILURE
 })
 
-// const opts = {
-//   headers: {
-//     authorization: `Bearer ${YelpToken}`
-//   }
-// }
-
 export const fetchRestaurants = () => dispatch => {
-  fetch('http://localhost:3000/api')
+  fetch('http://localhost:8080/api')
     .then(data=>{
       if(!data.ok){
-        return console.log('failed');
+        return console.log('The fetch request failed');
       }
       return data.json()
       }).then(data=>{
         console.log(data);
     })
 }
-
-// https://api.yelp.com/v3/businesses/search?term=food&location=74136
