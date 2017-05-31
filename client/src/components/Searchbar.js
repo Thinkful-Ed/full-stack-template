@@ -6,23 +6,23 @@ import Link from 'react-router-dom';
 export class Searchbar extends React.Component {
   constructor(props) {
     super(props);
-    this.componentDidMount = this.componentDidMount.bind(this)
+    this.onSearch = this.onSearch.bind(this)
   }
 
   onSearch(event){
     event.preventDefault();
-      const searchValue = this.searchInput.value;
-      const locationValue = this.locationInput.value;
-      this.form.reset();
-  }
-  componentDidMount() {
-    return this.props.dispatch(fetchRestaurants())
+    const query = {
+      search: this.searchInput.value,
+      location: this.locationInput.value
+    }
+    this.form.reset();
+    return this.props.dispatch(fetchRestaurants(query))
   }
 
 
   render() {
     return(
-      <form className="search-bar" onSubmit={e=>{this.onSearch(e)}}>
+      <form ref={form => this.form = form} className="search-bar" onSubmit={e=>{this.onSearch(e)}}>
         <label htmlFor="search-input">Find</label>
         <input type="text" id="search-input" placeholder="tacos, cheap dinner, The Brook" required
                 ref={input => this.searchInput = input} />

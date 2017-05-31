@@ -53,8 +53,9 @@ const opts = {
   }
 }
 
-app.get('/api', (req, res, next) => {
-  fetch('https://api.yelp.com/v3/businesses/search?term=pizza&location=74136', opts)
+app.post('/api', (req, res, next) => {
+  console.log(req.body);
+  fetch(`https://api.yelp.com/v3/businesses/search?term=${req.body.search}&location=${req.body.location}`, opts)
   .then(data => {
       return data.json();
   }).then(data => {
