@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import Restaurant from './components/Restaurant';
 import RestaurantListing from './components/RestaurantListing';
 import './App.css';
 import Searchbar from './components/Searchbar';
@@ -11,8 +12,8 @@ export function App(props) {
     <Router>
       <div>
         <Searchbar/>
-        <Route exact path="/:restaurant" component={RestaurantListing}/>
-        <Route exact path="/:restaurantId" component={RestaurantListing}/>
+        <Route exact path="/:restaurantId" component={Restaurant}/>
+        <RestaurantListing />
 
       </div>
     </Router>
