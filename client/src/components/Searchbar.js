@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import {connect} from 'react-redux';
 import {FETCH_RESTAURANT_REQUEST, FETCH_RESTAURANT_SUCCESS, FETCH_RESTAURANT_FAILURE, fetchRestaurants} from '../actions'
