@@ -4,8 +4,9 @@ import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import RestaurantListing from './components/RestaurantListing';
 import './App.css';
 import Searchbar from './components/Searchbar';
+import {connect} from 'react-redux';
 
-export default function App(props) {
+export function App(props) {
   return (
     <Router>
       <div>
@@ -17,3 +18,9 @@ export default function App(props) {
     </Router>
   )
 }
+
+const mapStateToProps = state => ({
+  restaurants: state.restaurants
+})
+
+export default connect(mapStateToProps)(App);
