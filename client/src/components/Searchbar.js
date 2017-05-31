@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchRestaurants} from '../actions'
+import {FETCH_RESTAURANT_REQUEST, FETCH_RESTAURANT_SUCCESS, FETCH_RESTAURANT_FAILURE, fetchRestaurants} from '../actions'
 import Link from 'react-router-dom';
 
 export class Searchbar extends React.Component {
@@ -22,6 +22,7 @@ export class Searchbar extends React.Component {
 
 
   render() {
+
     return(
       <form ref={form => this.form = form} className="search-bar" onSubmit={e=>{this.onSearch(e)}}>
         <label htmlFor="search-input">Find</label>
@@ -37,7 +38,7 @@ export class Searchbar extends React.Component {
 }
 
  export const mapStateToProps = state => ({
-
+   restaurants: state.restaurants
  })
 
-module.exports = connect(mapStateToProps)(Searchbar);
+export default connect(mapStateToProps)(Searchbar);
