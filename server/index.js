@@ -9,6 +9,8 @@ const {Restaurants} = require('./models');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 mongoose.Promise = global.Promise;
 
 // API endpoints go here!
