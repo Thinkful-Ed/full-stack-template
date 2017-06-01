@@ -23,10 +23,10 @@ export class Searchbar extends React.Component {
     return(
       <form ref={form => this.form = form} className="search-bar" onSubmit={e=>{this.onSearch(e)}}>
         <label htmlFor="search-input">Find</label>
-        <input type="text" id="search-input" placeholder="tacos, cheap dinner, The Brook" required
+        <input type="text" className="search-input" placeholder="tacos, cheap dinner, The Brook" required
                 ref={input => this.searchInput = input} />
         <label htmlFor="location-input">Near</label>
-        <input type="text" id="location-input" placeholder="Tulsa, OK" required
+        <input type="text" className="location-input" placeholder="Tulsa, OK" required
                 ref={input => this.locationInput = input} />
         <button type="submit">Search</button>
       </form>

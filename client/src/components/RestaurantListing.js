@@ -33,8 +33,6 @@ export class RestaurantListing extends React.Component {
       return <h1>Loading</h1>
     }
     return (
-      <div className="restaurant-container">
-        <img src="" alt="" className="restaurant-img"/>
         <ul>{restaurantList}</ul>
       </div>
     )
@@ -46,4 +44,4 @@ export const mapStateToProps = state => ({
   loading: state.loading
 })
 
-module.exports = connect(mapStateToProps)(RestaurantListing);
+export default connect(mapStateToProps)(RestaurantListing);

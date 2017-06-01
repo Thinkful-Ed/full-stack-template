@@ -34,4 +34,4 @@ export const mapStateToProps = (state, props) => {
   }
 }
 
-module.exports = connect(mapStateToProps)(Restaurant);
+export default connect(mapStateToProps)(Restaurant);
