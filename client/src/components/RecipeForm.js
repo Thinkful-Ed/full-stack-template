@@ -7,7 +7,7 @@ import Link from 'react-router-dom';
 export class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.onSearch = this.onSearch.bind(this)
+    this.onAdd = this.onAdd.bind(this)
   }
 
   onAdd(event){
@@ -26,7 +26,7 @@ export class RecipeForm extends React.Component {
   render() {
 
     return(
-      <form ref={form => this.form = form} className="recipe-form" onSubmit={e=>{this.onAdd(e)}}>
+      <form ref={form => this.form = form} className="recipe-form" onSubmit={e => this.onAdd(e)}>
         <label htmlFor="recipe-name">Recipe Name</label>
         <input type="text" className="recipe-name" placeholder="Paella" required
                 ref={input => this.recipeName = input} />

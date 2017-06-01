@@ -28,5 +28,8 @@
     "node-fetch": "^1.7.0",
     "npm-run-all": "^4.0.1",
     "xp": "^1.0.1"
+  },
+  "devDependencies": {
+    "node-sass-chokidar": "0.0.2"
   }
 }

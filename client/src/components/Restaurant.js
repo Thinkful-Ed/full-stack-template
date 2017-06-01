@@ -2,8 +2,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Searchbar from './Searchbar';
-import Recipe from './Recipe'
-
+import Recipe from './Recipe';
+import RecipeForm from './RecipeForm';
 
 export class Restaurant extends React.Component {
   render() {
@@ -25,6 +25,7 @@ export class Restaurant extends React.Component {
             <Recipe restaurantId={id} />
             <RecipeForm />
         </div>
+      </div>
     )
   }
 }
