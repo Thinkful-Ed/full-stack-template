@@ -6,6 +6,7 @@ import Searchbar from './Searchbar';
 export function Restaurant(props) {
   console.log(props);
   const restaurant = props.restaurant[0]
+
   return (
     <div className="restaurant-page">
       <h1>{restaurant.name}</h1>
@@ -33,4 +34,4 @@ export const mapStateToProps = (state, props) => {
   }
 }
 
-module.exports = connect(mapStateToProps)(Restaurant);
+export default connect(mapStateToProps)(Restaurant);

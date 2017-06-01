@@ -28,15 +28,11 @@ export class RestaurantListing extends React.Component {
     })
 
     return (
-      <div className="restaurant-container">
-        <img src="" alt="" className="restaurant-img"/>
         <ul>{restaurantList}</ul>
-
-      </div>
     )
   }
 }
 
 export const mapStateToProps = state => ({restaurants: state.restaurants})
 
-module.exports = connect(mapStateToProps)(RestaurantListing);
+export default connect(mapStateToProps)(RestaurantListing);
