@@ -1,11 +1,12 @@
 /* eslint-disable */
-import {FETCH_RESTAURANT_REQUEST, FETCH_RESTAURANT_SUCCESS,FETCH_RESTAURANT_FAILURE, SELECT_RESTAURANT} from '../actions';
+import {FETCH_RESTAURANT_REQUEST, FETCH_RESTAURANT_SUCCESS,FETCH_RESTAURANT_FAILURE, FETCH_RECIPE_FAILURE, FETCH_RECIPE_SUCCESS, SELECT_RESTAURANT} from '../actions';
 
 const initialState = {
   loading: false,
   restaurants: [],
   error: null,
-  selectRestaurant: null
+  selectRestaurant: null,
+  currentRecipes: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +26,17 @@ const reducer = (state = initialState, action) => {
       loading: false,
       error: null,
       restaurants: action.restaurants
+      })
+    case FETCH_RECIPE_FAILURE:
+    return Object.assign({}, state, {
+      loading: false,
+      error: true
+      })
+    case FETCH_RECIPE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      error: null,
+      currentRecipes: action.recipes
       })
     case SELECT_RESTAURANT:
     return {

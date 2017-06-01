@@ -19,10 +19,7 @@ export class Searchbar extends React.Component {
     this.form.reset();
     return this.props.dispatch(fetchRestaurants(query))
   }
-
-
   render() {
-
     return(
       <form ref={form => this.form = form} className="search-bar" onSubmit={e=>{this.onSearch(e)}}>
         <label htmlFor="search-input">Find</label>

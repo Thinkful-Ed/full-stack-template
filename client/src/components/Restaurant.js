@@ -7,7 +7,7 @@ import Recipe from './Recipe'
 export class Restaurant extends React.Component {
   render() {
 
-    const {restaurant: {name, rating, image_url, price, location: {display_address}, display_phone, id}} = this.props
+    const {restaurant: {name, rating, image_url, price, location: {display_address}, display_phone, id}} = this.props;
 
     return (
       <div className="restaurant-page">

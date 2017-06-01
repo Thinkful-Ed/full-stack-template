@@ -34,8 +34,34 @@ app.get('/api/yelp', (req, res, next) => {
       return res.json(data)
   });
 })
+app.post('/api/restaurants', (req, res) => {
+	if((Restaurant.find({'yelpId': req.body.yelpId}).count()) > 0) {
+		throw new Error('Woah kid, that\'s already an entry');
+	}
+	else {
+		const {name, ingredients, instructions, cookingTime} = req.body.recipes[0]
+		console.log(req.body);
+		Restaurant
+			.create({
+				yelpId: req.body.yelpId,
+				recipes: [{
+					name: name,
+					ingredients: ingredients,
+					instructions: instructions,
+					cookingTime: cookingTime
+				}]
+			})
+			.then(restaurant => {
+				res.status(201).json(restaurant.apiRepr());
+			})
+			.catch(err => {
+				res.status(500).json({error: '⛔ You really did it now ⛔'})
+			})
+	}
+})
 
 app.get('/api/restaurants/:id', (req, res) => {
+	console.log('got your req');
 	Restaurant
 		.findByYelpId(req.params.id)
 		.then(data => {
