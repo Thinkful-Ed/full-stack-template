@@ -5,7 +5,8 @@ mongoose.Promise = global.Promise;
 const restaurantSchema = mongoose.Schema({
   yelpId: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   recipes: [{
     name: {
@@ -32,6 +33,12 @@ const restaurantSchema = mongoose.Schema({
     }
   }]
 })
+
+restaurantSchema.statics = {
+  findByYelpId(yelpId) {
+    return this.findOne({yelpId});
+  }
+}
 
 restaurantSchema.methods.apiRepr = function() {
   return {
