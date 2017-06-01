@@ -1,5 +1,3 @@
-
-
 export const SUBMIT_RECIPE = 'SUBMIT_RECIPE'
 export const submitRecipe = (recipe) => ({
   type: SUBMIT_RECIPE,
@@ -23,24 +21,50 @@ export const FETCH_RESTAURANT_FAILURE = 'FETCH_RESTAURANT_FAILURE'
 export const fetchRestaurantFailure = () => ({
   type: FETCH_RESTAURANT_FAILURE
 })
+export const FETCH_RECIPE_SUCCESS = 'FETCH_RECIPE_SUCCESS'
+export const fetchRecipeSuccess = (recipes) => ({
+  type: FETCH_RECIPE_SUCCESS,
+  recipes
+})
+export const FETCH_RECIPE_FAILURE = 'FETCH_RECIPE_FAILURE'
+export const fetchRecipeFailure = () => ({
+  type: FETCH_RECIPE_FAILURE
+})
+
+
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+}
 
 export const fetchRestaurants = searchQuery => dispatch => {
   dispatch(fetchRestaurantRequest())
-  fetch('/api/yelp', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(searchQuery)
+  fetch(`/api/yelp?search=${searchQuery.search}&location=${searchQuery.location}`, {
+    headers
   })
     .then(data=>{
-
       if(!data.ok){
         return dispatch(fetchRestaurantFailure())
       }
       return data.json()
       }).then(data=>{
         return dispatch(fetchRestaurantSuccess(data.businesses))
+    })
+}
+export const fetchRecipes = restaurantId => dispatch => {
+  console.log('running action');
+  fetch(`/api/restaurants/${restaurantId}`, {
+    headers
+  })
+    .then(data=>{
+      console.log('got that data');
+      if(!data.ok){
+        console.log('data failed');
+        return dispatch(fetchRecipeFailure())
+      }
+      return data.json()
+      }).then(data=>{
+        console.log(data);
+        return dispatch(fetchRecipeSuccess(data))
     })
 }

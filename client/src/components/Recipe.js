@@ -1,27 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {submitRecipe} from '../actions';
+import {submitRecipe, fetchRecipes} from '../actions';
 
-export class Recipe extends React.Component {
-  onAdd(event)
-    event.preventDefault();
-    const recipeValue = this.recipeInput.value;
-    this.props.dispatch(submitRecipe(recipeValue));
-    this.recipeInput.value = '';
+class Recipe extends React.Component {
+  // onAdd(event) {
+  //   event.preventDefault();
+  //   const recipeValue = this.recipeInput.value;
+  //   this.props.dispatch(submitRecipe(recipeValue));
+  //   this.recipeInput.value = '';
+  // }
+  componentDidMount(){
+    this.props.dispatch(fetchRecipes(this.props.restaurantId))
   }
-
   render() {
+    console.log(this.props);
+    const testArray = ['Hello', 'Goodbye', 'See you soon']
+    const liTest = testArray.map((item, index) => {
+      return <li key={index}>{item}</li>
+    })
     return (
-      <form onSubmit={e=>{this.onAdd(e)}}>
-        <textarea ref={input => this.recipeInput = input} placeholder="Recipe"></textarea>
-        <button type="submit">Submit Recipe</button>
-      </form>
-    )
-  }
+      <ul>{liTest}</ul>
+    )  }
 }
 
-export const mapStateToProps = state => ({
-
-})
-
-module.exports = connect(mapStateToProps)(Recipe);
+export default connect()(Recipe);
