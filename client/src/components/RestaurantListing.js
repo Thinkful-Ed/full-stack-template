@@ -14,7 +14,7 @@ export class RestaurantListing extends React.Component {
   render() {
     const restaurantList = this.props.restaurants.map((restaurant, index) => {
       return (
-        <Link key={index} to={`/${restaurant.id}`} onClick={this._selectRestaurant(restaurant)}>
+        <Link key={index} to={`/${restaurant.id}`} onClick={e => this._selectRestaurant(restaurant)}>
           <li className="restaurant-container">
             <img src={restaurant.image_url} />
             <p>{restaurant.name}</p>
@@ -34,7 +34,6 @@ export class RestaurantListing extends React.Component {
     }
     return (
         <ul>{restaurantList}</ul>
-      </div>
     )
   }
 }

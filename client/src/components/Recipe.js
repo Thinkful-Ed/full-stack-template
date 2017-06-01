@@ -9,10 +9,17 @@ class Recipe extends React.Component {
     this.props.dispatch(fetchRecipes(this.props.restaurantId))
   }
   render() {
-    console.log(this.props);
-    console.log(this.props.recipes);
+    if(this.props.recipes == undefined) {
+      return <li> Loading </li>
+    }
     const recipesList = this.props.recipes.map((recipe, index) => {
-      return <li key={index}>{recipe.name}</li>
+      const {name, ingredients, cookingTime, instructions} = recipe;
+      return <li key={index}>
+              <p className="name">{name}</p>
+              <p className="ingredients">{ingredients}</p>
+              <p className="instructions">{instructions}</p>
+              <p className="cookingTime">{cookingTime}</p>
+            </li>
     })
     return (
       <ul>{recipesList}</ul>
