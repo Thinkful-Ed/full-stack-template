@@ -9,8 +9,6 @@ class Recipe extends React.Component {
     this.props.dispatch(fetchRecipes(this.props.restaurantId))
   }
   render() {
-    console.log(this.props);
-    console.log(this.props.recipes);
     if(this.props.recipes == undefined) {
       return <li> Loading </li>
     }
