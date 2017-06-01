@@ -13,6 +13,7 @@ class Recipe extends React.Component {
     this.props.dispatch(fetchRecipes(this.props.restaurantId))
   }
   render() {
+    console.log(this.props);
     const testArray = ['Hello', 'Goodbye', 'See you soon']
     const liTest = testArray.map((item, index) => {
       return <li key={index}>{item}</li>
