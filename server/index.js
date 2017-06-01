@@ -40,7 +40,7 @@ app.post('/api/restaurants', (req, res) => {
 	}
 	else {
 		const {name, ingredients, instructions, cookingTime} = req.body.recipes[0]
-		console.log(req.body);
+		console.log('req.body');
 		Restaurant
 			.create({
 				yelpId: req.body.yelpId,
@@ -61,11 +61,12 @@ app.post('/api/restaurants', (req, res) => {
 })
 
 app.get('/api/restaurants/:id', (req, res) => {
-	console.log('got your req');
+	console.log(req.params);
 	Restaurant
 		.findByYelpId(req.params.id)
 		.then(data => {
 			console.log(data);
+			res.status(200).json(data);
 		})
 		.catch(err => res.status(400))
 })

@@ -64,7 +64,7 @@ export const fetchRecipes = restaurantId => dispatch => {
       }
       return data.json()
       }).then(data=>{
-        console.log('data succeeds');
-        return dispatch(fetchRecipeSuccess(data.businesses))
+        console.log(data);
+        return dispatch(fetchRecipeSuccess(data))
     })
 }
