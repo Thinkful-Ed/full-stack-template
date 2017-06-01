@@ -1,26 +1,25 @@
+/* eslint-disable */
 import React from 'react';
 import {connect} from 'react-redux';
 import {submitRecipe, fetchRecipes} from '../actions';
 
 class Recipe extends React.Component {
-  // onAdd(event) {
-  //   event.preventDefault();
-  //   const recipeValue = this.recipeInput.value;
-  //   this.props.dispatch(submitRecipe(recipeValue));
-  //   this.recipeInput.value = '';
-  // }
+
   componentDidMount(){
     this.props.dispatch(fetchRecipes(this.props.restaurantId))
   }
   render() {
     console.log(this.props);
-    const testArray = ['Hello', 'Goodbye', 'See you soon']
-    const liTest = testArray.map((item, index) => {
-      return <li key={index}>{item}</li>
+    console.log(this.props.recipes);
+    const recipesList = this.props.recipes.map((recipe, index) => {
+      return <li key={index}>{recipe.name}</li>
     })
     return (
-      <ul>{liTest}</ul>
+      <ul>{recipesList}</ul>
     )  }
 }
+export const mapStateToProps = (state, props) => ({
+  recipes: state.currentRecipes.recipes
+})
 
-export default connect()(Recipe);
+export default connect(mapStateToProps)(Recipe);
