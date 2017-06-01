@@ -34,7 +34,6 @@ export class RestaurantListing extends React.Component {
     }
     return (
         <ul>{restaurantList}</ul>
-      </div>
     )
   }
 }
