@@ -2,34 +2,35 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Searchbar from './Searchbar';
+import Recipe from './Recipe'
 
-export function Restaurant(props) {
-  console.log(props);
-  const restaurant = props.restaurant[0]
-  return (
-    <div className="restaurant-page">
-      <h1>{restaurant.name}</h1>
-      <p className="rating">{restaurant.rating}</p>
-      <img src={restaurant.image_url} alt=""/>
-      <p className="price">{restaurant.price}</p>
-      <div className="address-container">
-        <p>{restaurant.location.display_address[0]}</p>
-        <p>{restaurant.location.display_address[1]}</p>
-        <p>{restaurant.display_phone}</p>
+export class Restaurant extends React.Component {
+  render() {
+
+    const {restaurant: {name, rating, image_url, price, location: {display_address}, display_phone, id}} = this.props
+
+    return (
+      <div className="restaurant-page">
+        <h1>{name}</h1>
+        <p className="rating">{rating}</p>
+        <img src={image_url} alt=""/>
+        <p className="price">{price}</p>
+        <div className="address-container">
+          <p>{display_address[0]}</p>
+          <p>{display_address[1]}</p>
+          <p>{display_phone}</p>
+        </div>
+        <div className="recipes-container">
+            <Recipe restaurantId={id} />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export const mapStateToProps = (state, props) => {
-  const restaurantId = props.match.params.restaurantId;
-  const restaurants = state.restaurants;
-  const restaurant = restaurants.filter(val => {
-    return val.id === restaurantId;
-  })
   return {
-    restaurantId,
-    restaurant
+    restaurant: state.selectRestaurant
   }
 }
 

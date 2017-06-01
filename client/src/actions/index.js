@@ -23,19 +23,30 @@ export const FETCH_RESTAURANT_FAILURE = 'FETCH_RESTAURANT_FAILURE'
 export const fetchRestaurantFailure = () => ({
   type: FETCH_RESTAURANT_FAILURE
 })
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+}
 
 export const fetchRestaurants = searchQuery => dispatch => {
   dispatch(fetchRestaurantRequest())
-  fetch('/api/yelp', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(searchQuery)
+  fetch(`/api/yelp?search=${searchQuery.search}&location=${searchQuery.location}`, {
+    headers
   })
     .then(data=>{
-
+      if(!data.ok){
+        return dispatch(fetchRestaurantFailure())
+      }
+      return data.json()
+      }).then(data=>{
+        return dispatch(fetchRestaurantSuccess(data.businesses))
+    })
+}
+export const fetchRecipes = restaurantId => dispatch => {
+  fetch(`/api/restaurants/${restaurantId}`, {
+    headers
+  })
+    .then(data=>{
       if(!data.ok){
         return dispatch(fetchRestaurantFailure())
       }
