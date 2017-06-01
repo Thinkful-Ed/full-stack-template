@@ -52,19 +52,17 @@ export const fetchRestaurants = searchQuery => dispatch => {
     })
 }
 export const fetchRecipes = restaurantId => dispatch => {
-  console.log('running action');
+  fetchRestaurantRequest();
   fetch(`/api/restaurants/${restaurantId}`, {
     headers
   })
     .then(data=>{
-      console.log('got that data');
       if(!data.ok){
         console.log('data failed');
         return dispatch(fetchRecipeFailure())
       }
       return data.json()
       }).then(data=>{
-        console.log(data);
         return dispatch(fetchRecipeSuccess(data))
     })
 }
