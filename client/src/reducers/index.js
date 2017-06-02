@@ -38,6 +38,15 @@ const reducer = (state = initialState, action) => {
       error: null,
       currentRecipes: action.recipes
       })
+    case SUBMIT_RECIPE:
+    return Object.assign({}, state, {
+      loading: true
+      })
+    case SUBMIT_RECIPE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      currentRecipes: action.recipes
+      })
     case SELECT_RESTAURANT:
     return {
       ...state,

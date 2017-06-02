@@ -52,7 +52,7 @@ export const fetchRestaurants = searchQuery => dispatch => {
     })
 }
 export const fetchRecipes = restaurantId => dispatch => {
-  fetchRestaurantRequest();
+  dispatch(fetchRestaurantRequest());
   fetch(`/api/restaurants/${restaurantId}`, {
     headers
   })
@@ -64,5 +64,24 @@ export const fetchRecipes = restaurantId => dispatch => {
       return data.json()
       }).then(data=>{
         return dispatch(fetchRecipeSuccess(data))
+    })
+}
+
+export const submitRecipe = (recipe, restaurantId) => dispatch => {
+  dispatch(fetchRestaurantRequest());
+  fetch(`/api/restaurants/${restaurantId}`, {
+    method: 'put',
+    body: JSON.stringify(recipe),
+    headers
+  })
+    .then(data=>{
+      if(!data.ok){
+        console.log('data failed to update');
+        return dispatch(submitRecipeFailure())
+      }
+      return data.json()
+      }).then(data=>{
+        console.log(data);
+        return dispatch(submitRecipeSuccess(data))
     })
 }
