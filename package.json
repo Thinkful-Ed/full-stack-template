@@ -30,6 +30,7 @@
     "xp": "^1.0.1"
   },
   "devDependencies": {
-    "node-sass-chokidar": "0.0.2"
+    "node-sass-chokidar": "0.0.2",
+    "redux-logger": "^3.0.6"
   }
 }

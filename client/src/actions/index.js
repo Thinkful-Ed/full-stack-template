@@ -27,8 +27,9 @@ export const fetchRecipeSuccess = (recipes) => ({
   recipes
 })
 export const FETCH_RECIPE_FAILURE = 'FETCH_RECIPE_FAILURE'
-export const fetchRecipeFailure = () => ({
-  type: FETCH_RECIPE_FAILURE
+export const fetchRecipeFailure = (errorMessage) => ({
+  type: FETCH_RECIPE_FAILURE,
+  errorMessage
 })
 
 
@@ -63,7 +64,14 @@ export const fetchRecipes = restaurantId => dispatch => {
       }
       return data.json()
       }).then(data=>{
+        if(!data) {
+          return dispatch(fetchRecipeFailure(new Error('Sorry, there\'s no recipes')))
+        }
         return dispatch(fetchRecipeSuccess(data))
+    })
+    .catch(err => {
+      console.log({err});
+      return dispatch(fetchRecipeFailure())
     })
 }
 
