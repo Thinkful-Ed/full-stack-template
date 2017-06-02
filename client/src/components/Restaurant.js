@@ -22,7 +22,7 @@ export class Restaurant extends React.Component {
         </div>
         <div className="recipes-container">
             <Recipe restaurantId={id} />
-            <RecipeForm />
+            <RecipeForm restaurantId={id} />
         </div>
       </div>
     )

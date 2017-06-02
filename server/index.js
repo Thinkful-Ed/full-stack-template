@@ -59,14 +59,6 @@ app.post('/api/restaurants', (req, res) => {
 })
 
 app.put('/api/restaurants/:restaurantId', (req, res) => {
-	console.log('hit1');
-  if ((Restaurant.find({'yelpId': req.params.restaurantId}).count()) > 0) {
-    console.log('put endpoint error');
-    res.status(500);
-  } else {
-		console.log('hit2');
-    const {name, ingredients, instructions, cookingTime} = req.body;
-		console.log('hit3');
     Restaurant
 			.findOneAndUpdate({yelpId: req.params.restaurantId}, {$set: req.body})
 			.exec()
@@ -74,13 +66,10 @@ app.put('/api/restaurants/:restaurantId', (req, res) => {
       restaurant.recipes.push(req.body)
 			return restaurant.save();
     }).then(restaurant => {
-			console.log(restaurant);
-			console.log('above me');
       res.status(201).json(restaurant);
     }).catch(err => {
       res.status(500).json({error: '⛔ You really did it now ⛔'})
     })
-  }
 })
 
 // app.put('/api/restaurants', (req, res) => {
@@ -105,7 +94,8 @@ app.put('/api/restaurants/:restaurantId', (req, res) => {
 // })
 
 app.get('/api/restaurants/:id', (req, res) => {
-  Restaurant.findByYelpId(req.params.id).then(data => {
+  Restaurant
+    .findByYelpId(req.params.id).then(data => {
     res.status(200).json(data);
   }).catch(err => res.status(400))
 })

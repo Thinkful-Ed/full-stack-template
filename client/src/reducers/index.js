@@ -5,7 +5,9 @@ import {
   FETCH_RESTAURANT_FAILURE,
   FETCH_RECIPE_FAILURE,
   FETCH_RECIPE_SUCCESS,
-  SELECT_RESTAURANT
+  SELECT_RESTAURANT,
+  SUBMIT_RECIPE_SUCCESS,
+  SUBMIT_RECIPE_FAILURE
 } from '../actions';
 
 const initialState = {
@@ -26,8 +28,7 @@ const reducer = (state = initialState, action) => {
     case FETCH_RESTAURANT_REQUEST:
       return {
         ...state,
-        currentRecipes: {...initialState.currentRecipes},
-        haveRecipe: false
+        currentRecipes: {...state.currentRecipes}
       }
 
     case FETCH_RESTAURANT_FAILURE:
@@ -50,22 +51,19 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         loading: false,
         error: null,
-        haveRecipe: action.recipe != null,
+        haveRecipe: action.recipes != null,
         currentRecipes: {
           recipes: action.recipes.recipes,
           _id: action.recipes._id,
           yelpId: action.recipes.yelpId
         }
       })
-    case SUBMIT_RECIPE:
-    return Object.assign({}, state, {
-      loading: true
-      })
     case SUBMIT_RECIPE_SUCCESS:
-    return Object.assign({}, state, {
-      loading: false,
-      currentRecipes: action.recipes
-      })
+    return {
+      ...state,
+      currentRecipes: {...state.currentRecipes, ...action.recipes},
+      loading: false
+    }
     case SELECT_RESTAURANT:
       return {
         ...state,

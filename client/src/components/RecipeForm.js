@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {connect} from 'react-redux';
-import {SUBMIT_RECIPE} from '../actions'
+import {submitRecipe} from '../actions'
 import Link from 'react-router-dom';
 
 export class RecipeForm extends React.Component {
@@ -20,7 +20,7 @@ export class RecipeForm extends React.Component {
       photo: this.photo.value
     }
     this.form.reset();
-    return this.props.dispatch(submitRecipe(recipeInput))
+    return this.props.dispatch(submitRecipe(recipeInput, this.props.restaurantId))
   }
 
   render() {
@@ -47,7 +47,7 @@ export class RecipeForm extends React.Component {
 }
 
  export const mapStateToProps = state => ({
-
+    recipes: state.currentRecipes.recipes
  })
 
 export default connect(mapStateToProps)(RecipeForm);
