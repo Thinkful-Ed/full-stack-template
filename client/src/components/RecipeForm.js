@@ -1,13 +1,13 @@
 /* eslint-disable */
 import React from 'react';
 import {connect} from 'react-redux';
-import {SUBMIT_RECIPE} from '../actions'
+import {submitRecipe} from '../actions'
 import Link from 'react-router-dom';
 
 export class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.onSearch = this.onSearch.bind(this)
+    this.onAdd = this.onAdd.bind(this)
   }
 
   onAdd(event){
@@ -20,13 +20,13 @@ export class RecipeForm extends React.Component {
       photo: this.photo.value
     }
     this.form.reset();
-    return this.props.dispatch(submitRecipe(recipeInput))
+    return this.props.dispatch(submitRecipe(recipeInput, this.props.restaurantId))
   }
 
   render() {
 
     return(
-      <form ref={form => this.form = form} className="recipe-form" onSubmit={e=>{this.onAdd(e)}}>
+      <form ref={form => this.form = form} className="recipe-form" onSubmit={e => this.onAdd(e)}>
         <label htmlFor="recipe-name">Recipe Name</label>
         <input type="text" className="recipe-name" placeholder="Paella" required
                 ref={input => this.recipeName = input} />
@@ -47,7 +47,7 @@ export class RecipeForm extends React.Component {
 }
 
  export const mapStateToProps = state => ({
-
+    recipes: state.currentRecipes.recipes
  })
 
 export default connect(mapStateToProps)(RecipeForm);

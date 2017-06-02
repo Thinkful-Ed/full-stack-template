@@ -2,12 +2,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Searchbar from './Searchbar';
-import Recipe from './Recipe'
-
+import Recipe from './Recipe';
+import RecipeForm from './RecipeForm';
 
 export class Restaurant extends React.Component {
   render() {
-
     const {restaurant: {name, rating, image_url, price, location: {display_address}, display_phone, id}} = this.props;
 
     return (
@@ -23,8 +22,9 @@ export class Restaurant extends React.Component {
         </div>
         <div className="recipes-container">
             <Recipe restaurantId={id} />
-            <RecipeForm />
+            <RecipeForm restaurantId={id} />
         </div>
+      </div>
     )
   }
 }
