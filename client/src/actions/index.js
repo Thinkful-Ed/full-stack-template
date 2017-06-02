@@ -32,14 +32,12 @@ export const fetchRestaurants = searchQuery => dispatch => {
   })
 }
 export const fetchRecipes = restaurantId => dispatch => {
+  console.log(restaurantId);
   dispatch(fetchRestaurantRequest());
-  fetch(`/api/restaurants/${restaurantId}`, {headers}).then(data => {
-    if (!data.ok) {
-      console.log('data failed');
-      return dispatch(fetchRecipeFailure())
-    }
-    return data.json()
-  }).then(data => {
+  fetch(`/api/restaurants/${restaurantId}`, {headers})
+  .then(res => res.json())
+
+  .then(data => {
     if (!data) {
       return dispatch(fetchRecipeFailure(new Error('Sorry, there\'s no recipes')))
     }
@@ -57,15 +55,10 @@ export const submitRecipe = (recipe, restaurantId) => dispatch => {
     method: 'put',
     body: JSON.stringify(recipe),
     headers
-  }).then(data => {
-    if (!data.ok) {
-      console.log('data failed to update');
-      return dispatch(submitRecipeFailure())
-    }
-    return data.json()
-  }).then(data => {
-    return dispatch(submitRecipeSuccess(data))
-  }).then((data) => {
-    return dispatch(fetchRecipes(data.restaurant.yelpId))
+  })
+  .then(res => res.json())
+  .then(data => {
+    dispatch(submitRecipeSuccess(data))
+    return dispatch(fetchRecipes(data.yelpId))
   })
 }

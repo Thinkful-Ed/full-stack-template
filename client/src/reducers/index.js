@@ -62,7 +62,9 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       currentRecipes: {...state.currentRecipes, ...action.recipes},
-      loading: false
+      loading: false,
+      haveRecipe: true,
+      error: null
     }
     case SELECT_RESTAURANT:
       return {

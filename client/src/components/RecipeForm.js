@@ -47,7 +47,8 @@ export class RecipeForm extends React.Component {
 }
 
  export const mapStateToProps = state => ({
-    recipes: state.currentRecipes.recipes
+    recipes: state.currentRecipes.recipes,
+    haveRecipe: state.haveRecipe
  })
 
 export default connect(mapStateToProps)(RecipeForm);

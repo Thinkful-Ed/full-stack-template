@@ -59,17 +59,36 @@ app.post('/api/restaurants', (req, res) => {
 })
 
 app.put('/api/restaurants/:restaurantId', (req, res) => {
+    // Restaurant
+		// 	.findOneAndUpdate({yelpId: req.params.restaurantId}, {$set: req.body})
+		// 	.exec()
+		// 	.then(restaurant => {
+    //     console.log(restaurant);
+    //   restaurant.recipes.push(req.body)
+		// 	return restaurant.save();
+    // }).then(restaurant => {
+    //   res.status(201).json(restaurant);
+    // }).catch(err => {
+    //   res.status(500).json({error: '⛔ You really did it now ⛔'})
+    // })
+    console.log(req.params.restaurantId);
     Restaurant
-			.findOneAndUpdate({yelpId: req.params.restaurantId}, {$set: req.body})
-			.exec()
-			.then(restaurant => {
-      restaurant.recipes.push(req.body)
-			return restaurant.save();
-    }).then(restaurant => {
-      res.status(201).json(restaurant);
-    }).catch(err => {
-      res.status(500).json({error: '⛔ You really did it now ⛔'})
-    })
+      .findOneAndUpdate({yelpId: req.params.restaurantId},
+                        {$push: {"recipes": req.body}},
+                        {safe: true, upsert: true},
+    function(err, model) {
+      if(err) {
+        res.send(err);
+      }
+      Restaurant
+        .findOne({yelpId: req.params.restaurantId}, function(err, doc) {
+          if(err) {
+            res.send(err);
+          }
+          res.json(doc);
+        })
+    }
+  );
 })
 
 // app.put('/api/restaurants', (req, res) => {
